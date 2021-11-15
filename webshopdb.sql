@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 15, 2021 at 10:34 AM
+-- Generation Time: Nov 15, 2021 at 10:56 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.25
 
@@ -78,10 +78,10 @@ CREATE TABLE `reviews` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `shopping cart`
+-- Table structure for table `shopping_cart`
 --
 
-CREATE TABLE `shopping cart` (
+CREATE TABLE `shopping_cart` (
   `idCart` int(11) NOT NULL,
   `customer_idCustomer` int(11) NOT NULL,
   `product_idProduct` int(11) NOT NULL,
@@ -118,9 +118,9 @@ ALTER TABLE `reviews`
   ADD KEY `product_idProduct` (`product_idProduct`);
 
 --
--- Indexes for table `shopping cart`
+-- Indexes for table `shopping_cart`
 --
-ALTER TABLE `shopping cart`
+ALTER TABLE `shopping_cart`
   ADD PRIMARY KEY (`idCart`),
   ADD KEY `product_idProduct` (`product_idProduct`),
   ADD KEY `customer_idCustomer` (`customer_idCustomer`);
@@ -142,9 +142,9 @@ ALTER TABLE `products`
   MODIFY `idProduct` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `shopping cart`
+-- AUTO_INCREMENT for table `shopping_cart`
 --
-ALTER TABLE `shopping cart`
+ALTER TABLE `shopping_cart`
   MODIFY `idCart` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -155,7 +155,7 @@ ALTER TABLE `shopping cart`
 -- Constraints for table `customer`
 --
 ALTER TABLE `customer`
-  ADD CONSTRAINT `customer_ibfk_1` FOREIGN KEY (`idCustomer`) REFERENCES `shopping cart` (`customer_idCustomer`),
+  ADD CONSTRAINT `customer_ibfk_1` FOREIGN KEY (`idCustomer`) REFERENCES `shopping_cart` (`customer_idCustomer`),
   ADD CONSTRAINT `customer_ibfk_2` FOREIGN KEY (`idCustomer`) REFERENCES `reviews` (`customer_idCustomer`);
 
 --
@@ -163,7 +163,7 @@ ALTER TABLE `customer`
 --
 ALTER TABLE `products`
   ADD CONSTRAINT `products_ibfk_1` FOREIGN KEY (`idProduct`) REFERENCES `category` (`product_idProduct`),
-  ADD CONSTRAINT `products_ibfk_2` FOREIGN KEY (`idProduct`) REFERENCES `shopping cart` (`product_idProduct`),
+  ADD CONSTRAINT `products_ibfk_2` FOREIGN KEY (`idProduct`) REFERENCES `shopping_cart` (`product_idProduct`),
   ADD CONSTRAINT `products_ibfk_3` FOREIGN KEY (`idProduct`) REFERENCES `reviews` (`product_idProduct`);
 COMMIT;
 
