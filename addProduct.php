@@ -10,7 +10,7 @@
 
 <form action = "includes/addProd.php" method = "POST">
   
-  <input type="text" name="product" placeholder="Product"><br><br>
+  <input type="text" name="products" placeholder="Product"><br><br>
   
   <input type="text" name="price" placeholder="Price"><br><br>
   
@@ -33,15 +33,14 @@
 <b>
 <p>
 <?php
-	$sql = "SELECT * FROM product;";
+	$sql = "SELECT * FROM products;";
 	$result = mysqli_query($conn, $sql);
 	$checkResult = mysqli_num_rows($result);
 	
 	if($checkResult > 0){
 		while($row = mysqli_fetch_assoc($result)){
 			echo "<br>" . "ID: " . $row['idProduct'] . "<br>";
-			echo "Name: " . $row['name'] . "<br>";
-			echo "Category: " . $row['category'] . "<br>";
+			echo "Name: " . $row['p_name'] . "<br>";
 			echo "Price: " . $row['price'] . "<br>";
 			echo "Stock: " . $row['stock'] . "<br>";
 		}

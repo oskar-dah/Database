@@ -21,8 +21,7 @@
 	if($checkResult > 0){
 		while($row = mysqli_fetch_assoc($result)){
 			echo "<br>" . "ID: " . $row['idProduct'] . "<br>";
-			echo "Name: " . $row['name'] . "<br>";
-			echo "Category: " . $row['category'] . "<br>";
+			echo "Name: " . $row['p_name'] . "<br>";
 			echo "Price: " . $row['price'] . "<br>";
 			echo "Stock: " . $row['stock'] . "<br>";
 		}
