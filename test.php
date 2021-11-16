@@ -13,7 +13,7 @@
 <b>
 <p>
 <?php
-	$sql = "SELECT * FROM product;";
+	$sql = "SELECT * FROM products;";
 //	$sql = "INSERT INTO product VALUES (4, 'Phone', 145, 1)";
 	$result = mysqli_query($conn, $sql);
 	$checkResult = mysqli_num_rows($result);

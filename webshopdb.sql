@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 15, 2021 at 10:56 AM
+-- Generation Time: Nov 16, 2021 at 09:49 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.25
 
@@ -28,9 +28,17 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `category` (
+  `categoryID` int(11) NOT NULL,
   `product_idProduct` int(11) NOT NULL,
-  `category` varchar(45) DEFAULT NULL
+  `category` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `category`
+--
+
+INSERT INTO `category` (`categoryID`, `product_idProduct`, `category`) VALUES
+(2, 9, 'banan');
 
 -- --------------------------------------------------------
 
@@ -62,6 +70,15 @@ CREATE TABLE `products` (
   `category` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Dumping data for table `products`
+--
+
+INSERT INTO `products` (`idProduct`, `p_name`, `price`, `stock`, `category`) VALUES
+(4, 'tv', 250, 20, 'screen'),
+(8, 'tv', 20, 250, 'screen'),
+(9, 'tv', 20, 20, 'banan');
+
 -- --------------------------------------------------------
 
 --
@@ -72,7 +89,8 @@ CREATE TABLE `reviews` (
   `customer_idCustomer` int(11) NOT NULL,
   `product_idProduct` int(11) NOT NULL,
   `comment` tinytext NOT NULL,
-  `rating` int(11) NOT NULL
+  `rating` int(11) NOT NULL,
+  `reviewID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -96,6 +114,7 @@ CREATE TABLE `shopping_cart` (
 -- Indexes for table `category`
 --
 ALTER TABLE `category`
+  ADD PRIMARY KEY (`categoryID`),
   ADD KEY `product_idProduct` (`product_idProduct`);
 
 --
@@ -114,6 +133,7 @@ ALTER TABLE `products`
 -- Indexes for table `reviews`
 --
 ALTER TABLE `reviews`
+  ADD PRIMARY KEY (`reviewID`),
   ADD KEY `customer_idCustomer` (`customer_idCustomer`),
   ADD KEY `product_idProduct` (`product_idProduct`);
 
@@ -130,6 +150,12 @@ ALTER TABLE `shopping_cart`
 --
 
 --
+-- AUTO_INCREMENT for table `category`
+--
+ALTER TABLE `category`
+  MODIFY `categoryID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
@@ -139,7 +165,13 @@ ALTER TABLE `customer`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `idProduct` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idProduct` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `reviews`
+--
+ALTER TABLE `reviews`
+  MODIFY `reviewID` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `shopping_cart`
@@ -152,19 +184,24 @@ ALTER TABLE `shopping_cart`
 --
 
 --
--- Constraints for table `customer`
+-- Constraints for table `category`
 --
-ALTER TABLE `customer`
-  ADD CONSTRAINT `customer_ibfk_1` FOREIGN KEY (`idCustomer`) REFERENCES `shopping_cart` (`customer_idCustomer`),
-  ADD CONSTRAINT `customer_ibfk_2` FOREIGN KEY (`idCustomer`) REFERENCES `reviews` (`customer_idCustomer`);
+ALTER TABLE `category`
+  ADD CONSTRAINT `category_ibfk_1` FOREIGN KEY (`product_idProduct`) REFERENCES `products` (`idProduct`);
 
 --
--- Constraints for table `products`
+-- Constraints for table `reviews`
 --
-ALTER TABLE `products`
-  ADD CONSTRAINT `products_ibfk_1` FOREIGN KEY (`idProduct`) REFERENCES `category` (`product_idProduct`),
-  ADD CONSTRAINT `products_ibfk_2` FOREIGN KEY (`idProduct`) REFERENCES `shopping_cart` (`product_idProduct`),
-  ADD CONSTRAINT `products_ibfk_3` FOREIGN KEY (`idProduct`) REFERENCES `reviews` (`product_idProduct`);
+ALTER TABLE `reviews`
+  ADD CONSTRAINT `reviews_ibfk_1` FOREIGN KEY (`product_idProduct`) REFERENCES `products` (`idProduct`),
+  ADD CONSTRAINT `reviews_ibfk_2` FOREIGN KEY (`customer_idCustomer`) REFERENCES `customer` (`idCustomer`);
+
+--
+-- Constraints for table `shopping_cart`
+--
+ALTER TABLE `shopping_cart`
+  ADD CONSTRAINT `shopping_cart_ibfk_1` FOREIGN KEY (`customer_idCustomer`) REFERENCES `customer` (`idCustomer`),
+  ADD CONSTRAINT `shopping_cart_ibfk_2` FOREIGN KEY (`product_idProduct`) REFERENCES `products` (`idProduct`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
