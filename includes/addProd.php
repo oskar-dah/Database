@@ -13,5 +13,5 @@
 
 
 
-  header("Location: ../test.php?submit=success");
+  header("Location: ../index.php?submit=success");
 ?>
