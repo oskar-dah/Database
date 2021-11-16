@@ -1,24 +1,21 @@
 <?php
-	include_once 'includes/dbHandler.php';
+	include_once '../includes/dbHandler.php';
 ?>
 
 <!DOCTYPE html>
 <html>
 <body>
 
-<h1>Welcome to Web-shop</h1>
+<h1>Your shopping cart (WIP)</h1>
 
-
-<button type="button" onclick="location.href = 'addProduct.php';">Manage products</button>
-<button type="button" onclick="location.href = 'shopCart/shoppingCart.php';">Shopping Cart</button>
 <b>
 <p>
 <?php
-	$sql = "SELECT * FROM products;";
-//	$sql = "INSERT INTO product VALUES (4, 'Phone', 145, 1)";
+	$sql = "SELECT * FROM shopping_cart;";
 	$result = mysqli_query($conn, $sql);
 	$checkResult = mysqli_num_rows($result);
 	
+    //this loop needs to be changed to correct values
 	if($checkResult > 0){
 		while($row = mysqli_fetch_assoc($result)){
 			echo "<br>" . "ID: " . $row['idProduct'] . "<br>";
