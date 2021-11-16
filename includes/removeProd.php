@@ -7,5 +7,5 @@
   $sql = "DELETE FROM products WHERE idProduct = '$ID';";
   mysqli_query($conn, $sql);
 
-  header("Location: ../test.php?submit=success");
+  header("Location: ../index.php?submit=success");
 ?>
