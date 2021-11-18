@@ -11,17 +11,27 @@
 <b>
 <p>
 <?php
-	$sql = "SELECT * FROM shopping_cart;";
+    $shopper = 1; //to be changed when loginSystem is done
+	$sql = "SELECT * FROM shopping_cart WHERE customer_idCustomer=$shopper;";
+	
+	mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+	
 	$result = mysqli_query($conn, $sql);
 	$checkResult = mysqli_num_rows($result);
 	
-    //this loop needs to be changed to correct values
 	if($checkResult > 0){
-		while($row = mysqli_fetch_assoc($result)){
-			echo "<br>" . "ID: " . $row['idProduct'] . "<br>";
-			echo "Name: " . $row['p_name'] . "<br>";
-			echo "Price: " . $row['price'] . "<br>";
-			echo "Stock: " . $row['stock'] . "<br>";
+		while($productNr = mysqli_fetch_assoc($result)){
+			$sql2 = "SELECT p_name, price FROM products WHERE idProduct=$productNr[product_idProduct];";
+
+			$result2 = mysqli_query($conn, $sql2);
+			$checkResult2 = mysqli_num_rows($result2);
+
+			if($checkResult2 > 0){
+				while($rowProduct = mysqli_fetch_assoc($result2)){
+					echo "<br>" . "Name: " . $rowProduct['p_name'] . "<br>";
+					echo "Price: " . $rowProduct['price'] . "<br>";
+				}
+			}
 		}
 	}  
 ?>
