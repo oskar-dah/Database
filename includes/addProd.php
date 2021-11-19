@@ -46,9 +46,13 @@
 
   mysqli_query($conn, $insert);
 
+<<<<<<< HEAD
  */
   
   
   //Källor
   //https://stackoverflow.com/questions/18733545/selected-value-get-from-db-into-dropdown-select-box-option-using-php-mysql-error
+=======
+  header("Location: ../index.php?submit=success");
+>>>>>>> 40495a13339e12ae7728f5afde606efba877aaf6
 ?>

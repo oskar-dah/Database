@@ -10,6 +10,7 @@
 
 
 <button type="button" onclick="location.href = 'addProduct.php';">Manage products</button>
+<button type="button" onclick="location.href = 'shopCart/shoppingCart.php';">Shopping Cart</button>
 <b>
 <p>
 <?php
