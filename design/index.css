@@ -1,10 +1,13 @@
 h1 {
+    font-family:'Georgia';
     background-color: #26cf20;
 }
 
 .button {
   background-color: #26cf20;
   border: none;
+  font-weight: bold;
+  font-family:'Georgia';
   color: rgb(32, 32, 32);
   padding: 15px 32px;
   text-align: center;

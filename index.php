@@ -13,6 +13,7 @@
 
 <button class = "button" type="button" onclick="location.href = 'manageProducts.php';">Manage products</button>
 <button class = "button" type="button" onclick="location.href = 'shopCart/shoppingCart.php';">Shopping Cart</button>
+<button class = "button" type="button" onclick="location.href = 'shopCart/shoppingCart.php';">Log in</button>
 
 <?php
 	$sql = "SELECT * FROM products;";
@@ -27,7 +28,7 @@
 			echo "Name: " . $row['p_name'] . "<br>";
 			echo "Price: " . $row['price'] . "<br>";
 			echo "Stock: " . $row['stock'] . "<br>";
-			echo '<div class = "button"> Lägg i kundvagn </div>';
+			echo '<div class = "button"> Add to cart </div>';
 		}
 	}  
 ?>
