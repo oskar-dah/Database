@@ -1,13 +1,13 @@
 <?php
-	include_once '../includes/dbHandler.php';
 	session_start();
+	include_once '../includes/dbHandler.php';	
 ?>
 
 <!DOCTYPE html>
 <html>
 <body>
 
-<h1>Your shopping cart</h1>
+<h1>Your shopping cart <?php deleteCartButton(); ?></h1>
 
 <b>
 <p>
@@ -40,6 +40,17 @@
 		?>
 		<meta http-equiv="refresh" content="0; url=../signUp.php" />
 		<?php
+	}
+
+	
+
+	function deleteCartButton(){ ?>
+
+		<form action="deleteCart.php" method = "POST">
+		 <input type="submit" 
+			value="Delete cart">
+		</form>
+	<?php
 	}
 
 	function removeProdFromCartButton($shopper, $productID){ ?>
