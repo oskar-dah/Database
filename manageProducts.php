@@ -46,18 +46,6 @@
 			echo "Stock: " . $row['stock'] . "<br>";
 		}
 	}  
-
-	$sql = "SELECT * FROM customer;";
-	$result = mysqli_query($conn, $sql);
-	$checkResult = mysqli_num_rows($result);
-	
-	if($checkResult > 0){
-		while($row = mysqli_fetch_assoc($result)){
-			echo "<br>" . "ID: " . $row['username'] . "<br>";
-			echo "Name: " . $row['password'] . "<br>";
-		}
-	}  
-
 ?>
 </p>
 </b>
