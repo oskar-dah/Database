@@ -5,12 +5,12 @@
   $price = $_POST['price'];
   $Amount = $_POST['amount'];
   $category = $_POST['category'];
-<<<<<<< HEAD
+
   $sql = "INSERT INTO products VALUES (0, '$name', $price, $Amount, '$category');";
   mysqli_query($conn, $sql);
 
   header("Location: ../index.php?submit=success");
-=======
+
   
   $query = "SELECT * FROM products WHERE p_name = '$name' AND price = '$price';";
   $queryResult = mysqli_query($conn, $query);
@@ -29,5 +29,4 @@
   header("Location: ../index.php?submit=success");
   //Källor
   //https://stackoverflow.com/questions/18733545/selected-value-get-from-db-into-dropdown-select-box-option-using-php-mysql-error
->>>>>>> db0bd20bdbfad9b5fe4a36edef693a6304f79dca
 ?>
