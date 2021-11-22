@@ -26,7 +26,6 @@ else{
 <p>
 <button class = "button" type="button" onclick="location.href = 'manageProducts.php';">Manage products</button>
 <button class = "button" type="button" onclick="location.href = 'shopCart/shoppingCart.php';">Shopping Cart</button>
-<button class = "button" type="button" onclick="location.href = 'shopCart/shoppingCart.php';">Log in</button>
 <button class = "button" type="button" onclick="location.href = 'signIn.php';">Sign in</button>
 <button class = "button" type="button" onclick="location.href = 'signUp.php';">Sign up</button>
 <?php
