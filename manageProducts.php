@@ -10,7 +10,7 @@
 
 <form action = "includes/addProd.php" method = "POST">
   
-  <input type="text" name="product" placeholder="Product"><br><br>
+  <input type="text" name="products" placeholder="Product"><br><br>
   
   <input type="text" name="price" placeholder="Price"><br><br>
   
