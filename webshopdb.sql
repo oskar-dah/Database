@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 16, 2021 at 09:49 AM
+-- Generation Time: Nov 22, 2021 at 09:37 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.25
 
@@ -24,37 +24,26 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `category`
---
-
-CREATE TABLE `category` (
-  `categoryID` int(11) NOT NULL,
-  `product_idProduct` int(11) NOT NULL,
-  `category` varchar(45) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `category`
---
-
-INSERT INTO `category` (`categoryID`, `product_idProduct`, `category`) VALUES
-(2, 9, 'banan');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `customer`
 --
 
 CREATE TABLE `customer` (
   `idCustomer` int(11) NOT NULL,
-  `password` varchar(45) DEFAULT NULL,
-  `forname` varchar(45) DEFAULT NULL,
-  `lastname` varchar(45) DEFAULT NULL,
-  `address` varchar(45) DEFAULT NULL,
-  `email` varchar(45) DEFAULT NULL,
-  `phoneNr` varchar(45) DEFAULT NULL
+  `username` varchar(45) NOT NULL,
+  `password` varchar(45) NOT NULL,
+  `forname` varchar(45) NOT NULL,
+  `lastname` varchar(45) NOT NULL,
+  `phoneNr` varchar(45) NOT NULL,
+  `address` varchar(45) NOT NULL,
+  `email` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `customer`
+--
+
+INSERT INTO `customer` (`idCustomer`, `username`, `password`, `forname`, `lastname`, `phoneNr`, `address`, `email`) VALUES
+(2, 'tonytonfisk2', 'hejsan123', 'Tony', 'Tonytonfisk', '0733591437', 'Laboratorievägen 25', 'tonzha-9@student.ltu.se');
 
 -- --------------------------------------------------------
 
@@ -69,15 +58,6 @@ CREATE TABLE `products` (
   `stock` int(11) DEFAULT NULL,
   `category` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `products`
---
-
-INSERT INTO `products` (`idProduct`, `p_name`, `price`, `stock`, `category`) VALUES
-(4, 'tv', 250, 20, 'screen'),
-(8, 'tv', 20, 250, 'screen'),
-(9, 'tv', 20, 20, 'banan');
 
 -- --------------------------------------------------------
 
@@ -109,13 +89,6 @@ CREATE TABLE `shopping_cart` (
 --
 -- Indexes for dumped tables
 --
-
---
--- Indexes for table `category`
---
-ALTER TABLE `category`
-  ADD PRIMARY KEY (`categoryID`),
-  ADD KEY `product_idProduct` (`product_idProduct`);
 
 --
 -- Indexes for table `customer`
@@ -150,22 +123,16 @@ ALTER TABLE `shopping_cart`
 --
 
 --
--- AUTO_INCREMENT for table `category`
---
-ALTER TABLE `category`
-  MODIFY `categoryID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `idCustomer` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idCustomer` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `idProduct` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `idProduct` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `reviews`
@@ -182,12 +149,6 @@ ALTER TABLE `shopping_cart`
 --
 -- Constraints for dumped tables
 --
-
---
--- Constraints for table `category`
---
-ALTER TABLE `category`
-  ADD CONSTRAINT `category_ibfk_1` FOREIGN KEY (`product_idProduct`) REFERENCES `products` (`idProduct`);
 
 --
 -- Constraints for table `reviews`

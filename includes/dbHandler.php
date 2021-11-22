@@ -2,7 +2,7 @@
 $dbServerName = "localhost";
 $dbUsername = "root";
 $dbPassword = "";
-$dbName = "webshopDB";
+$dbName = "webshopdb";
 
 $conn = mysqli_connect($dbServerName, $dbUsername, $dbPassword, $dbName);
 ?>

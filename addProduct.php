@@ -33,19 +33,31 @@
 <b>
 <p>
 <?php
-	$sql = "SELECT * FROM product;";
+	$sql = "SELECT * FROM products;";
 	$result = mysqli_query($conn, $sql);
 	$checkResult = mysqli_num_rows($result);
 	
 	if($checkResult > 0){
 		while($row = mysqli_fetch_assoc($result)){
 			echo "<br>" . "ID: " . $row['idProduct'] . "<br>";
-			echo "Name: " . $row['name'] . "<br>";
+			echo "Name: " . $row['p_name'] . "<br>";
 			echo "Category: " . $row['category'] . "<br>";
 			echo "Price: " . $row['price'] . "<br>";
 			echo "Stock: " . $row['stock'] . "<br>";
 		}
 	}  
+
+	$sql = "SELECT * FROM customer;";
+	$result = mysqli_query($conn, $sql);
+	$checkResult = mysqli_num_rows($result);
+	
+	if($checkResult > 0){
+		while($row = mysqli_fetch_assoc($result)){
+			echo "<br>" . "ID: " . $row['username'] . "<br>";
+			echo "Name: " . $row['password'] . "<br>";
+		}
+	}  
+
 ?>
 </p>
 </b>

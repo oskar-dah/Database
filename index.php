@@ -1,4 +1,5 @@
 <?php
+	session_start();
 	include_once 'includes/dbHandler.php';
 ?>
 
@@ -8,8 +9,19 @@
 
 <h1>Welcome to Web-shop</h1>
 
-
+<?php
+if(isset($_SESSION["idCustomer"])){
+	echo "<p> Logged in </p>";
+	echo "<li><a href = 'includes/logout.inc.php'> Log out </a> </li>";
+}
+else{
+	echo "<p> Sign in </p>";
+	echo "<p> Sign up </p>";
+}
+?>
 <button type="button" onclick="location.href = 'addProduct.php';">Manage products</button>
+<button type="button" onclick="location.href = 'signIn.php';">Sign in</button>
+<button type="button" onclick="location.href = 'signUp.php';">Sign up</button>
 <b>
 <p>
 <?php
@@ -21,7 +33,7 @@
 	if($checkResult > 0){
 		while($row = mysqli_fetch_assoc($result)){
 			echo "<br>" . "ID: " . $row['idProduct'] . "<br>";
-			echo "Name: " . $row['name'] . "<br>";
+			echo "Name: " . $row['p_name'] . "<br>";
 			echo "Category: " . $row['category'] . "<br>";
 			echo "Price: " . $row['price'] . "<br>";
 			echo "Stock: " . $row['stock'] . "<br>";
