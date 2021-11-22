@@ -26,24 +26,26 @@
 			$result2 = mysqli_query($conn, $sql2);
 			$checkResult2 = mysqli_num_rows($result2);
 
-			if($checkResult2 > 0){
-				while($rowProduct = mysqli_fetch_assoc($result2)){
-					echo "<br>" . "Name: " . $rowProduct['p_name'] . "<br>";
-					echo "Price: " . $rowProduct['price'] . "<br>";
-					removeProdFromCartButton($shopper);
-				}
-			}
+			$rowProduct = mysqli_fetch_assoc($result2);
+			echo "<br>" . "Name: " . $rowProduct['p_name'] . "<br>";
+			echo "Price: " . $rowProduct['price'] . "<br>";
+			//removeProdFromCartButton($shopper, idProduct);
+			
 		}
 	}  
 
 	//https://stackoverflow.com/questions/30051961/how-can-i-make-an-html-button-that-passes-a-parameter
-	function removeProdFromCartButton($shopper){ ?>
-
+	function removeProdFromCartButton($shopper, $productID){ ?>
+		<?php echo $shopper; ?>
 		<form action="removeProdFromCart.php" method = "POST">
 
      	<input type="hidden"
             name="shopper"
-            value=<?php $shopper ?>> 
+            value=<?php echo $shopper; ?>> 
+
+		<input type="hidden"
+            name="productID"
+            value=<?php echo $productID; ?>>
 
      	<input type="submit" 
             value="Ta Bort">
