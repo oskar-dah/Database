@@ -6,30 +6,35 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="design/index.css">
+<link rel="stylesheet" href="design/index.css?v=<?php echo time(); ?>">
 </head>
 <body>
-
-<h1>Welcome to Web-shop</h1>
 	
 <?php
 if(isset($_SESSION["idCustomer"])){
-	echo "<li><a href = 'includes/logout.inc.php'> Log out </a> </li>";
-	echo "<li><a href = 'shopCart/shoppingCart.php'> Shopping cart </a> </li>";
 	if($_SESSION["user_type"] == "A"){
-		echo "<p> Logged in as admin </p>";
-		
+		echo "<ul class=\"navbar\">";
+		echo "<li> <a href = 'index.php'> Web-shoppen </a></li>";
+		echo "<li><a href = 'shopCart/shoppingCart.php'> Shopping cart </a> </li>";
 		echo "<li><a href = 'manageProducts.php'> Manage products </a> </li>";
+		echo "<li><a href = 'includes/logout.inc.php'> Log out </a></li>";
+		echo "</ul>";
 	}
 	else if($_SESSION["user_type"] == "U"){
-		echo "<p> Logged in </p>";
-		
+		echo '<ul class="navbar">';
+		echo "<li> <a href = 'index.php'> Web-shoppen </a></li>";
+		echo "<li><a href = 'shopCart/shoppingCart.php'> Shopping cart </a> </li>";
+		echo "<li><a href = 'includes/logout.inc.php'> Log out </a></li>";
+		echo "</ul>";	
 	}
-	
 }
 else{
+	echo '<ul class="navbar">';
+	echo "<li> <a href = 'index.php'> Web-shoppen </a></li>";
 	echo "<li><a href = 'signIn.php'> Sign in </a> </li>";
 	echo "<li><a href = 'signUp.php'> Sign up </a> </li>";
+	echo "<li><a href = 'shopCart/shoppingCart.php'> Shopping cart </a> </li>";
+	echo "</ul>";
 }
 ?>
 <b>
@@ -73,32 +78,10 @@ else{
 				echo '<meta http-equiv="refresh" content="0; url=signUp.php" />';
 			}
 		}
-		
 	}  
-
-	if($_SESSION["user_type"] == "A"){
-		echo "<p> Logged in as admin </p>";
-		echo "<li><a href = 'includes/logout.inc.php'> Log out </a> </li>";
-	}
-	else if($_SESSION["user_type"] == "U"){
-		echo "<p> Logged in </p>";
-		echo "<li><a href = 'includes/logout.inc.php'> Log out </a> </li>";
-	}
-	
-
-else{
-	echo "<p> Sign in </p>";
-	echo "<p> Sign up </p>";
-	echo "<li><a href = 'signIn.php'> Sign in </a> </li>";
-	echo "<li><a href = 'signUp.php'> Sign up </a> </li>";
-}
 ?>
 <b>
 <p>
-<button class = "button" type="button" onclick="location.href = 'manageProducts.php';">Manage products</button>
-<button class = "button" type="button" onclick="location.href = 'shopCart/shoppingCart.php';">Shopping Cart</button>
-<button class = "button" type="button" onclick="location.href = 'signIn.php';">Sign in</button>
-<button class = "button" type="button" onclick="location.href = 'signUp.php';">Sign up</button>
 
 </body>
 </html>
