@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
 <body>
-
+<button type="button" onclick="location.href = '../index.php';">Home</button>
 <h1>Your shopping cart <?php deleteCartButton(); ?></h1>
 
 <b>

@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <body>
-
+<button type="button" onclick="location.href = 'index.php';">Home</button>
 <h1>Sign up</h1>
 
 <form action = "includes/signIn.inc.php" method = "POST">
