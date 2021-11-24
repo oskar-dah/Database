@@ -1,10 +1,10 @@
-h1 {
-    font-family:'Georgia';
-    background-color: #26cf20;
+html body{
+  margin: 0;
+  padding: 0;
 }
 
 .button {
-  background-color: #26cf20;
+  background-color: #6d91a8;
   border: none;
   font-weight: bold;
   font-family:'Georgia';
@@ -18,6 +18,37 @@ h1 {
 }  
 
 .button:hover {
-  background-color: #0f490d;
+  background-color: #123111;
 }
+
+ul{
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  padding-left: 20px;
+  overflow: hidden;
+  background-color: #68879e;
+  font-family: arial;
+  text-align: left;
+  width: 100%;
+  position: sticky;
+  top: 0;
+}
+
+ul.navbar li{
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 15px 16px;
+  text-decoration: none;
+  float: left;
+  font-size: 20px;
+  border-right: 1px solid #bbb;
+}
+
+ul.navbar li a{
+   color: inherit; 
+   text-decoration: none;
+}
+
 
