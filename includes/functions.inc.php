@@ -59,7 +59,7 @@ mysqli_stmt_close();
 }
 
 function createUser($conn, $uid, $pwd, $name, $lastName, $mail, $phoneNr, $address){
-$sql = "INSERT INTO customer (username, password, forname, lastname, phoneNr, address, email) VALUES (? , ? , ? , ? , ?, ?, ? );";
+$sql = "INSERT INTO customer (username, password, forname, lastname, phoneNr, address, email, user_type) VALUES (? , ? , ? , ? , ?, ?, ?, 'U');";
 $stmt = mysqli_stmt_init($conn);
 if(!mysqli_stmt_prepare($stmt, $sql)){
     header("location: ../signUp.php?error=sqlinjection");
@@ -86,10 +86,11 @@ function signIn($conn, $uid, $pwd){
         header("location: ../signIn.php?error=falselogin");
         exit();
     }
-    if( $databasePWD === $pwd){
+    if($databasePWD === $pwd){
         session_start();
         $_SESSION['idCustomer'] = $uidExists['idCustomer'];
         $_SESSION['username'] = $uidExists['username'];
+        $_SESSION['user_type'] = $uidExists['user_type'];
         header("location: ../index.php");
         exit();
     }
