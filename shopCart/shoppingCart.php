@@ -7,12 +7,14 @@
 <html>
 <body>
 
-<h1>Your shopping cart <?php deleteCartButton(); ?></h1>
+<button type="button" onclick="location.href = '../index.php';">Home</button>
+<h1>Your shopping cart <?php  ?></h1>
 
 <b>
 <p>
 <?php
-
+	buyCartButton();
+	deleteCartButton(); 
 	try {
 		$shopper = $_SESSION['idCustomer'];
 		$sql = "SELECT * FROM shopping_cart WHERE customer_idCustomer=$shopper;";
@@ -42,7 +44,14 @@
 		<?php
 	}
 
-	
+	function buyCartButton(){ ?>
+
+		<form action="buyCart.php" method = "POST">
+		 <input type="submit" 
+			value="Buy cart">
+		</form>
+	<?php
+	}
 
 	function deleteCartButton(){ ?>
 

@@ -14,22 +14,44 @@
 	
 <?php
 if(isset($_SESSION["idCustomer"])){
-	function addToCart($idProduct, $resC, $idCust){
+	echo "<li><a href = 'includes/logout.inc.php'> Log out </a> </li>";
+	echo "<li><a href = 'shopCart/shoppingCart.php'> Shopping cart </a> </li>";
+	if($_SESSION["user_type"] == "A"){
+		echo "<p> Logged in as admin </p>";
+		
+		echo "<li><a href = 'manageProducts.php'> Manage products </a> </li>";
+	}
+	else if($_SESSION["user_type"] == "U"){
+		echo "<p> Logged in </p>";
+		
+	}
+	
+}
+else{
+	echo "<li><a href = 'signIn.php'> Sign in </a> </li>";
+	echo "<li><a href = 'signUp.php'> Sign up </a> </li>";
+}
+?>
+<b>
+<p>
+
+<?php
+	function addToCart($idProduct, $conn, $idCust){
+
+		$customer = "SELECT * FROM customer WHERE idCustomer = '$idCust';";
+		$resC = mysqli_query($conn, $customer);
+
 		if(mysqli_num_rows($resC)>0){
 			$arr = mysqli_fetch_assoc($resC);
 			$shipping = $arr["address"];
 			$add = "INSERT INTO shopping_cart VALUES (null, '$idCust', '$idProduct', '$shipping');";
-			return $add;
+			mysqli_query($conn, $add);
 		}
 	}
 
 	$sql = "SELECT * FROM products;";
 	$result = mysqli_query($conn, $sql);
 	$checkResult = mysqli_num_rows($result);
-	$idCust = $_SESSION["idCustomer"];
-
-	$customer = "SELECT * FROM customer WHERE idCustomer = '$idCust';";
-	$resC = mysqli_query($conn, $customer);
 
 	if($checkResult > 0){
 		while($row = mysqli_fetch_assoc($result)){
@@ -43,10 +65,13 @@ if(isset($_SESSION["idCustomer"])){
 			echo '<button name = "add" class = "button" type="submit" value ='. $row['idProduct'] .'>Add to cart</button>';
 		}
 		if(isset($_POST["add"])){
-			echo "Produkten" . $_POST["add"];
-			$id = $_POST["add"];
-			$temp = addToCart($id, $resC, $idCust);
-			mysqli_query($conn, $temp);
+			if(isset($_SESSION["idCustomer"])){
+				echo "Produkten" . $_POST["add"];
+				$id = $_POST["add"];
+				addToCart($id, $conn, $_SESSION["idCustomer"]);
+			}else{
+				echo '<meta http-equiv="refresh" content="0; url=signUp.php" />';
+			}
 		}
 		
 	}  
@@ -60,7 +85,7 @@ if(isset($_SESSION["idCustomer"])){
 		echo "<li><a href = 'includes/logout.inc.php'> Log out </a> </li>";
 	}
 	
-}
+
 else{
 	echo "<p> Sign in </p>";
 	echo "<p> Sign up </p>";
