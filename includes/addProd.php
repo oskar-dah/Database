@@ -5,22 +5,24 @@
   $price = $_POST['price'];
   $Amount = $_POST['amount'];
   $category = $_POST['category'];
-  $sql = "INSERT INTO products VALUES (0, '$name', $price, $Amount, '$category');";
+
+/*  $sql = "INSERT INTO products VALUES (0, '$name', $price, $Amount, '$category');";
   mysqli_query($conn, $sql);
 
-  header("Location: ../index.php?submit=success");
+  header("Location: ../index.php?submit=success");*/
 
   
   $query = "SELECT * FROM products WHERE p_name = '$name' AND price = '$price';";
   $queryResult = mysqli_query($conn, $query);
 
   $row = mysqli_fetch_assoc($queryResult);
-  $idValue = $row['idProduct'];
+  
 
   if(mysqli_num_rows($queryResult)>0){
+    $idValue = $row['idProduct'];
     $sql = "UPDATE products SET stock = stock + $Amount WHERE idProduct = '$idValue';";
   }else{
-    $sql = "INSERT INTO products VALUES (null, '$name', '$price', '$Amount');";
+    $sql = "INSERT INTO products VALUES (null, '$name', '$price', '$Amount', '$category');";
   }
   mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
   mysqli_query($conn, $sql);

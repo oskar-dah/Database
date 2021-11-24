@@ -1,15 +1,13 @@
 <?php
+	session_start();
 	include_once '../includes/dbHandler.php';
+
+	$productID = $_POST['productID'];
+
+	$shopperID = $_SESSION['idCustomer'];
+
+	$sql = "DELETE FROM shopping_cart WHERE customer_idCustomer = '$shopperID' AND product_idProduct = '$productID';";
+  	mysqli_query($conn, $sql);
+
+	header("Location: shoppingCart.php?submit=success");
 ?>
-
-<!DOCTYPE html>
-<html>
-<body>
-
-<h1>HÄR SKA PRODUKTER SLAKTAS FRÅN KORGEN!! >8D</h1>
-<?php
-	echo "kund: " . $_POST['shopper'];
-?>
-
-</body>
-</html>
