@@ -62,6 +62,7 @@ else{
 				$rowProduct = mysqli_fetch_assoc($result2);
 				echo "<br>" . "Name: " . $rowProduct['p_name'] . "<br>";
 				echo "Price: " . $rowProduct['price'] . "<br>";
+				echo "Amount: " . $productNr['amount'] . "<br>";
 				removeProdFromCartButton($shopper, $productNr['product_idProduct']);
 
 			}

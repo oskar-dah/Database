@@ -41,17 +41,46 @@ else{
 <p>
 
 <?php
+/*
+$query = "SELECT * FROM products WHERE p_name = '$name' AND price = '$price';";
+$queryResult = mysqli_query($conn, $query);
+
+$row = mysqli_fetch_assoc($queryResult);
+
+
+if(mysqli_num_rows($queryResult)>0){
+  $idValue = $row['idProduct'];
+  $sql = "UPDATE products SET stock = stock + $Amount WHERE idProduct = '$idValue';";
+}else{
+  $sql = "INSERT INTO products VALUES (null, '$name', '$price', '$Amount', '$category');";
+}
+mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+mysqli_query($conn, $sql);*/
+
 	function addToCart($idProduct, $conn, $idCust){
 
-		$customer = "SELECT * FROM customer WHERE idCustomer = '$idCust';";
+		$query = "SELECT * FROM shopping_cart WHERE customer_idCustomer = '$idCust' AND product_idProduct = '$idProduct';";
+		$queryResult = mysqli_query($conn, $query);
+
+		$row = mysqli_fetch_assoc($queryResult);
+
+		if(mysqli_num_rows($queryResult)>0){
+			$add = "UPDATE shopping_cart SET amount = amount + 1 WHERE customer_idCustomer = '$idCust' AND product_idProduct = '$idProduct';";
+		}else{
+			$add = "INSERT INTO shopping_cart VALUES (null, '$idCust', '$idProduct', 1);";
+		}
+		mysqli_query($conn, $add);
+
+
+
+
+		/*$customer = "SELECT * FROM customer WHERE idCustomer = '$idCust';";
 		$resC = mysqli_query($conn, $customer);
 
 		if(mysqli_num_rows($resC)>0){
 			$arr = mysqli_fetch_assoc($resC);
-			$shipping = $arr["address"];
-			$add = "INSERT INTO shopping_cart VALUES (null, '$idCust', '$idProduct', '$shipping');";
-			mysqli_query($conn, $add);
-		}
+			
+		}*/
 	}
 
 	$sql = "SELECT * FROM products;";
