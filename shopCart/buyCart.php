@@ -73,7 +73,7 @@ if($checkResult > 0){
 
             //KOM IHÅG ATT RENSA SHOPPING CART
         }
-        $sql = "DELETE FROM shopping_cart WHERE customer_idCustomer = '$shopperID';";
+        $sql = "DELETE FROM shopping_cart WHERE customer_idCustomer = '$shopper';";
   	    mysqli_query($conn, $sql);
           
         header("Location: ../index.php?submit=success");
