@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <body>
-
+<button type="button" onclick="location.href = 'index.php';">Home</button>
 <h1>Add new product</h1>
 
 <form action = "includes/addProd.php" method = "POST">
