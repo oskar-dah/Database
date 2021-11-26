@@ -61,8 +61,8 @@ if($checkResult > 0){
     }
 
     if($allowPurchase){
-        echo "HATA LÖVEN";
-        echo $sql;
+        //echo "HATA LÖVEN";
+        //echo $sql;
 
         $result = mysqli_query($conn, $sql);
 
@@ -73,8 +73,9 @@ if($checkResult > 0){
 
             //KOM IHÅG ATT RENSA SHOPPING CART
         }
-        $sql = "DELETE FROM shopping_cart WHERE customer_idCustomer = '$shopperID';";
-  	    mysqli_query($conn, $sql);
+        $del = "DELETE FROM shopping_cart WHERE customer_idCustomer = '$shopper';";
+
+  	    mysqli_query($conn, $del);
           
         header("Location: ../index.php?submit=success");
 

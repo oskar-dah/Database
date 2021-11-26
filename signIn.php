@@ -35,7 +35,7 @@ else{
 	echo "</ul>";
 }
 ?>
-<h1>Sign up</h1>
+<h1>Sign in</h1>
 
 <form action = "includes/signIn.inc.php" method = "POST">
   

@@ -4,7 +4,7 @@
   $ID = $_POST['productID'];
   
   //$sql = "INSERT INTO product VALUES (0,'$name', '$price', '$Amount', '$category');";
-  $sql = "DELETE FROM products WHERE idProduct = '$ID';";
+  $sql = "UPDATE products SET stock = 0 WHERE idProduct = '$ID';";
   mysqli_query($conn, $sql);
 
   header("Location: ../index.php?submit=success");
