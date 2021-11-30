@@ -61,8 +61,8 @@ if($checkResult > 0){
     }
 
     if($allowPurchase){
-        echo "HATA LÖVEN";
-        echo $sql;
+        //echo "HATA LÖVEN";
+        //echo $sql;
 
         $result = mysqli_query($conn, $sql);
 

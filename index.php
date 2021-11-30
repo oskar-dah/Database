@@ -89,14 +89,15 @@ mysqli_query($conn, $sql);*/
 
 	if($checkResult > 0){
 		while($row = mysqli_fetch_assoc($result)){
-			
-			echo "<br>" . "ID: " . $row['idProduct'] . "<br>";
-			echo "Name: " . $row['p_name'] . "<br>";
-			echo "Category: " . $row['category'] . "<br>";
-			echo "Price: " . $row['price'] . "<br>";
-			echo "Stock: " . $row['stock'] . "<br>";
-			echo "<form action='index.php' method='post'>";
-			echo '<button name = "add" class = "button" type="submit" value ='. $row['idProduct'] .'>Add to cart</button>';
+			if($row['stock'] > 0){
+				echo "<br>" . "ID: " . $row['idProduct'] . "<br>";
+				echo "Name: " . $row['p_name'] . "<br>";
+				echo "Category: " . $row['category'] . "<br>";
+				echo "Price: " . $row['price'] . "<br>";
+				echo "Stock: " . $row['stock'] . "<br>";
+				echo "<form action='index.php' method='post'>";
+				echo '<button name = "add" class = "button" type="submit" value ='. $row['idProduct'] .'>Add to cart</button>';
+			}
 		}
 		if(isset($_POST["add"])){
 			if(isset($_SESSION["idCustomer"])){
