@@ -35,6 +35,7 @@ else{
 	echo "</ul>";
 }
 ?>
+<div class = "menu1">
 <h1>Add new product</h1>
 
 <form action = "includes/addProd.php" method = "POST">
@@ -47,18 +48,87 @@ else{
 
   <input type="text" name="category" placeholder="Category"><br><br>
 
-  <button type="submit" value="Submit"> Submit </button>
+  <button class = "button" type="submit" value="Submit"> Submit </button>
 </form>
+</div>
 
+<div class = "menu2">
 <h1>Remove product</h1>
 
 <form action = "includes/removeProd.php" method = "POST">
   
-  <input type="text" name="productID" placeholder="ProductID"><br><br>
+  <input type="text" name="remProductID" placeholder="ProductID"><br><br>
 
-  <button type="submit" value="Submit"> Submit </button>
+  <button name = "removeB" class="button" type="submit" value="Submit"> Submit </button>
 </form>
+</div>
 
+<div class = "menu2">
+<h1>Change price</h1>
+
+<form action = "includes/changePrice.php" method = "POST">
+  
+  <input type="text" name="pProductID" placeholder="ProductID"><br><br>
+
+  <input type="text" name="newPrice" placeholder="New Price"><br><br>
+  
+  <button name = "priceB" class="button" type="submit" value="Submit"> Submit </button>
+</form>
+</div>
+
+<div class = "menu2">
+<h1>Change stock</h1>
+
+<form action = "includes/changeStock.php" method = "POST">
+  
+  <input type="text" name="amProductID" placeholder="ProductID"><br><br>
+
+  <input type="text" name="newAmount" placeholder="New amount"><br><br>
+  
+  <button name = "stockB" class="button" type="submit" value="Submit"> Submit </button>
+</form>
+</div>
+<!--
+<div class = "menu2">
+<h1>Change category</h1>
+
+<form action = "manageProducts.php" method = "POST">
+  
+  <input type="text" name="catProductID" placeholder="ProductID"><br><br>
+
+  <input type="text" name="newCategory" placeholder="New category"><br><br>
+  
+  <button name = "categoryB" class="button" type="submit" value="Submit"> Submit </button>
+</form>
+</div>
+-->
+<?php/*
+	if(isset($_POST["addB"])){
+		//echo "ADDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD";
+		//name, price, amount, category
+		addProd($_POST["addProducts"], $_POST["addPrice"], $_POST["addAmount"], $_POST["addCategory"]);
+	}else if(isset($_POST["removeB"])){
+		//echo "REMOVEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE";
+		//id
+		//$id = $_POST("remProductID");
+		//removeProd($id);
+		test();
+	}else if(isset($_POST["priceB"])){
+		//echo "PRICEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE";
+		//id, price
+		changePrice($_POST["pProductID"], $_POST["newPrice"]);
+	}else if(isset($_POST["stockB"])){
+		//echo "STOCKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK";
+		//id amount
+		changeStock($_POST["amProductID"], $_POST["newAmount"]);
+	}else if(isset($_POST["categoryB"])){
+		//echo "CATEGORYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY";
+		//id cat
+		changeCat($_POST["catProductID"], $_POST["newCategory"]);
+	}
+*/
+?>
+<div class = "printout">
 <b>
 <p>
 <?php
@@ -78,6 +148,6 @@ else{
 ?>
 </p>
 </b>
-
+</div>
 </body>
 </html>

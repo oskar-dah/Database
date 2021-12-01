@@ -27,7 +27,7 @@
   mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
   mysqli_query($conn, $sql);
   
-  header("Location: ../index.php?submit=success");
+  header("Location: ../manageProducts.php?submit=success");
   //Källor
   //https://stackoverflow.com/questions/18733545/selected-value-get-from-db-into-dropdown-select-box-option-using-php-mysql-error
 ?>
