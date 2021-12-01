@@ -38,16 +38,11 @@ else{
 }
 ?>
 <div class="search">
-	<h1> Here we do some searching </h1>
-		
+	<h1> Here we do some searching </h1>	
 	<form action = "index.php" method = "POST">
 		<input type="text" name="cat" placeholder="Category"><br><br>
 		<button class = "button" name = "test" type="submit" value="Submit"> Submit </button>
 	</form>
-		
-	<?php
-		
-	?>
 </div>
 <b>
 <p>
