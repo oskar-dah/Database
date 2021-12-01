@@ -76,7 +76,10 @@ else{
 	function buyCartButton(){ ?>
 
 		<form action="buyCart.php" method = "POST">
-		 <input type="submit" 
+
+		<input type="text" name="shippingAddr" placeholder="shipping Address" required><br><br>
+
+		<input type="submit" 
 			value="Buy cart">
 		</form>
 	<?php
