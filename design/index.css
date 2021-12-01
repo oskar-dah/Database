@@ -19,6 +19,7 @@ html body{
 
 .button:hover {
   background-color: #123111;
+  color:whitesmoke;
 }
 
 ul{
@@ -72,7 +73,59 @@ ul.navbar li a{
   float:right;
   width: 500px;
   height: 500px;
-  
   margin-right: 100px;
 }
+
+.dropbtn {
+  background-color: #6d91a8;
+  font-family:'Georgia';
+  font-weight: bold;
+  color: rgb(32, 32, 32);
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropperB{
+  border: none;
+  width:190px;
+  font-weight: bold;
+  font-family:'Georgia';
+  color: rgb(32, 32, 32);
+  text-align: center;
+  display: inline-block;
+  font-size: 16px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  transition: 50ms;
+}
+
+.dropperB:hover{
+  background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.dropdown:hover .dropbtn {background-color: #123111; color:whitesmoke;}
 
