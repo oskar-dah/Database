@@ -17,6 +17,7 @@ if(isset($_SESSION["idCustomer"])){
 		echo "<li> <a href = 'index.php'> Web-shoppen </a></li>";
 		echo "<li><a href = 'shopCart/shoppingCart.php'> Shopping cart </a> </li>";
 		echo "<li><a href = 'manageProducts.php'> Manage products </a> </li>";
+		echo "<li><a href = 'manageUsers.php'> Manage users </a> </li>";
 		echo "<li><a href = 'includes/logout.inc.php'> Log out </a></li>";
 		echo "</ul>";
 	}

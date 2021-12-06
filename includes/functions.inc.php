@@ -87,6 +87,10 @@ function signIn($conn, $uid, $pwd){
         exit();
     }
     if($databasePWD === $pwd){
+        if($uidExists['user_type'] == "B"){
+            header("location: ../signIn.php?error=banned");
+            exit();
+        }
         session_start();
         $_SESSION['idCustomer'] = $uidExists['idCustomer'];
         $_SESSION['username'] = $uidExists['username'];
