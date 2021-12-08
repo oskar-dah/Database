@@ -41,25 +41,20 @@ else{
 	<h1> Here we do some searching </h1>	
 	<form action = "index.php" method = "POST">
 		<input type="text" name="cat" placeholder="Category"><br><br>
-		<button class = "button" name = "test" type="submit" value="Submit"> Submit </button>
-	</form>
-	<div class="dropdown">
+		<div class="dropdown">
   		<div class="dropbtn">Sort by</div>
 			<div class="dropdown-content">
 				<form action = "index.php" method = "POST">
-				<button class = "dropperB" name = "pLf" type="submit" value="Submit"> Price (lowest first) </button>
-				<button class = "dropperB" name = "pHf" type="submit" value="Submit"> Price (highest first) </button>
-				<button class = "dropperB" name = "nAz" type="submit" value="Submit"> Name (A-Z) </button>
-				<button class = "dropperB" name = "nZa" type="submit" value="Submit"> Name (Z-A) </button>
-				<button class = "dropperB" name = "rating" type="submit" value="Submit"> Rating </button>
+					<button class = "dropperB" name = "btnCat" type="submit" value="Submit"> Submit (no filter) </button> 
+					<button class = "dropperB" name = "pLf" type="submit" value="Submit"> Price (lowest first) </button>
+					<button class = "dropperB" name = "pHf" type="submit" value="Submit"> Price (highest first) </button>
+					<button class = "dropperB" name = "nAz" type="submit" value="Submit"> Name (A-Z) </button>
+					<button class = "dropperB" name = "nZa" type="submit" value="Submit"> Name (Z-A) </button>
 				</form>
-				<!--<a href="#">Price (lowest first)</a>
-				<a href="#">Price (highest first)</a>
-				<a href="#">Name (A-Z)</a>
-				<a href="#">Name (Z-A)</a>
-				<a href="#">Rating</a>-->
 			</div>
-	</div>
+		</div>
+		
+	</form>
 </div>
 <b>
 <p>
@@ -104,13 +99,15 @@ else{
 					echo '<meta http-equiv="refresh" content="0; url=signUp.php" />';
 				}
 			}
+		}else{
+			echo "No products was found in that category";
 		}
 	}
 
-	if(isset($_POST["test"])){
+	/*if(isset($_POST["btnCat"]) && !empty($_POST["cat"])){
 		$cat = $_POST["cat"];
-		$sql = "SELECT * FROM `products` WHERE category = '$cat';";
-		echo "<h1> Viewing all " . $cat . "s </h1>";
+		$sql ="SELECT * FROM products WHERE category = '$cat';";
+		echo "<h1> Viewing all " . $cat . "</h1>";
 		printer($sql, $conn);
 	}elseif(isset($_POST["pLf"])){
 		echo "<h1> Viewing products lowest to highest </h1>";
@@ -118,7 +115,7 @@ else{
 		printer($sql, $conn);
 	}elseif(isset($_POST["pHf"])){
 		echo "<h1> Viewing products highest to lowest </h1>";
-		$sql = "SELECT * FROM products ORDER BY price DESC;";
+		$sql = "SELECT * FROM products products ORDER BY price DESC;";
 		printer($sql, $conn);
 	}elseif(isset($_POST["nAz"])){
 		echo "<h1> Viewing products A-Z </h1>";
@@ -128,15 +125,42 @@ else{
 		echo "<h1> Viewing products Z-A </h1>";
 		$sql = "SELECT * FROM products ORDER BY p_name DESC;";
 		printer($sql, $conn);
-	}elseif(isset($_POST["rating"])){
-		echo "<h1> Viewing products highest to lowest rating</h1>";
-		//$sql = "SELECT * FROM products;";
+	}else{
+		echo "<h1> All products </h1>";
+		$sql = "SELECT * FROM products;"; 
+		printer($sql, $conn);
+	}*/	
+	$sql = "SELECT * FROM products";
+	if(!empty($_POST["cat"])){
+		$cat = $_POST["cat"];
+		$sql = $sql . " WHERE category = '$cat'";
+	}
+
+	if(isset($_POST["btnCat"])){
+		//$sql ="SELECT * FROM products WHERE category = '$cat';";
+		echo "<h1> Viewing all " . $cat . "</h1>";
+		//printer($sql, $conn);
+	}elseif(isset($_POST["pLf"])){
+		echo "<h1> Viewing products lowest to highest </h1>";
+		$sql = $sql .  " ORDER BY price ASC;";
+		//printer($sql, $conn);
+	}elseif(isset($_POST["pHf"])){
+		echo "<h1> Viewing products highest to lowest </h1>";
+		$sql = $sql .  " ORDER BY price DESC;";
+		//printer($sql, $conn);
+	}elseif(isset($_POST["nAz"])){
+		echo "<h1> Viewing products A-Z </h1>";
+		$sql = $sql .  " ORDER BY p_name ASC;";
+		//printer($sql, $conn);
+	}elseif(isset($_POST["nZa"])){
+		echo "<h1> Viewing products Z-A </h1>";
+		$sql = $sql . " ORDER BY p_name DESC;";
 		//printer($sql, $conn);
 	}else{
 		echo "<h1> All products </h1>";
-		$sql = "SELECT * FROM products;";
-		printer($sql, $conn);
-	}	
+		$sql = $sql . ";"; 
+	}
+	printer($sql, $conn);
 ?>
 <b>
 <p>
