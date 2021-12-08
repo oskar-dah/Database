@@ -67,9 +67,8 @@ if($checkResult > 0){
 
         $sqlShipID = "SELECT idShipment FROM shipment ORDER BY idShipment DESC LIMIT 1;";
         $currShipmentID = mysqli_query($conn, $sqlShipID);
-        echo 'th';
         $currShipID = mysqli_fetch_assoc($currShipmentID);
-        echo $currShipID['idShipment'];
+        //echo $currShipID['idShipment'];
 
         $sql = "SELECT * FROM shopping_cart WHERE customer_idCustomer=$shopper;";
         $shoppersCart = mysqli_query($conn, $sql);
@@ -87,7 +86,7 @@ if($checkResult > 0){
             $sqlUpdate = "UPDATE products SET stock = stock - $a WHERE idProduct = $idCurrProduct;";
             mysqli_query($conn, $sqlUpdate);
 
-            $sqlIns = "INSERT INTO boughtproducts (idBoughtProducts, products_idProduct, shipment_idShipment, priceAtPurchase) VALUES (null, '$idCurrProduct', '$currShipID[idShipment]', '$priceAtPurchase[price]');";
+            $sqlIns = "INSERT INTO boughtproducts (idBoughtProducts, products_idProduct, shipment_idShipment, priceAtPurchase, amount) VALUES (null, '$idCurrProduct', '$currShipID[idShipment]', '$priceAtPurchase[price]', $a);";
             mysqli_query($conn, $sqlIns);
         }
 

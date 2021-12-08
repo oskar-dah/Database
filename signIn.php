@@ -55,11 +55,13 @@ if(isset($_GET["error"])){
     }
     else if($_GET["error"] == "falselogin"){
         echo "<p> Wrong information </p>";
+
+	}
+	else if($_GET["error"] == "banned"){
+        echo "<p> You have been banned, contact Admin. </p>";
+
     }
-
-
-
-    }
+}
 ?>
 </body>
 </html>

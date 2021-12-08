@@ -87,12 +87,30 @@ function signIn($conn, $uid, $pwd){
         exit();
     }
     if($databasePWD === $pwd){
+        if($uidExists['user_type'] == "B"){
+            header("location: ../signIn.php?error=banned");
+            exit();
+        }
         session_start();
         $_SESSION['idCustomer'] = $uidExists['idCustomer'];
         $_SESSION['username'] = $uidExists['username'];
         $_SESSION['user_type'] = $uidExists['user_type'];
         header("location: ../index.php");
         exit();
+    }
+}
+
+function allowAdminOnly(){
+    if(isset($_SESSION["idCustomer"])){
+        if($_SESSION["user_type"] !== "A"){
+            ?> 
+            <html><meta http-equiv="refresh" content="0; url=../index.php" /> </html>
+            <?php
+        }
+    } else {
+         ?>
+        <html><meta http-equiv="refresh" content="0; url=../index.php" /> </html>
+        <?php
     }
 }
 
