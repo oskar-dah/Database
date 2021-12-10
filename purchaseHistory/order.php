@@ -41,10 +41,52 @@ else{
 	echo "</ul>";
 }
 
+$orderNr = $_POST['orderNr'];
+
+if(isset($_POST['shippingAddr'])){
+	$shippingAddr = rawurldecode($_POST['shippingAddr']);
+} else {
+	$sqlShipAddress = "SELECT shippingAddr FROM shipment WHERE idShipment = $orderNr;";
+	$result = mysqli_query($conn, $sqlShipAddress);
+	$row = mysqli_fetch_assoc($result);
+	$shippingAddr = $row['shippingAddr'];
+}
+
+echo $shippingAddr;
 
 
-echo $_POST['orderNr']
+$sql = "SELECT * FROM boughtproducts WHERE shipment_idShipment = $orderNr;";
+printProducts($sql, $conn);
+echo"Shipping Adress: $shippingAddr";
+
+function printProducts($sql, $conn){
+    $result = mysqli_query($conn, $sql);
+    $checkResult = mysqli_num_rows($result);
+
+    if($checkResult > 0){
+        while($row = mysqli_fetch_assoc($result)){
+
+			$idProduct = $row['products_idProduct'];
+			$quantity = $row['amount'];
+			$price = $row['priceAtPurchase'];
+			
+			$sqlProd = "SELECT * FROM boughtproducts;";
+
+            echo "<br>" . "Product Number: $idProduct" . "<br>";
+			echo "quantity: $quantity" . "<br>";
+			echo '<span style="font-size: 19px; color: #000000; font-weight: bold;">Price: ' . $price*$quantity . 'kr<br></span>' ;
+            
+			
+			?>
+			<?php
+        }
+    } else {
+		echo "så kan de gå";
+	}
+	
+}
 ?>
+
 
 <b>
 <p>
