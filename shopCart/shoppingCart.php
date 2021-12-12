@@ -78,7 +78,7 @@ else{
 
 		<form action="buyCart.php" method = "POST">
 
-		<input type="text" name="shippingAddr" placeholder="shipping Address" required><br><br>
+		<input type="text" name="shippingAddr" placeholder="shipping Address" required><br>
 
 		<input type="submit" 
 			value="Buy cart">
@@ -86,7 +86,7 @@ else{
 	<?php
 	}
 
-	function deleteCartButton(){ ?>
+	function deleteCartButton(){ ?><br>
 
 		<form action="deleteCart.php" method = "POST">
 		 <input type="submit" 
