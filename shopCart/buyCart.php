@@ -45,6 +45,9 @@ $checkResult = mysqli_num_rows($shoppersCart);
 if($checkResult > 0){
     $allowPurchase = true;
     $deniedProducts = array();
+    
+    $mutex = "START TRANSACTION;";
+    mysqli_query($conn, $mutex);
 
     while($productNr = mysqli_fetch_assoc($shoppersCart)){
         $stock = "SELECT stock, p_name FROM products WHERE idProduct=$productNr[product_idProduct];";
@@ -92,10 +95,17 @@ if($checkResult > 0){
 
         $sqlDel = "DELETE FROM shopping_cart WHERE customer_idCustomer = '$shopper';";
   	    mysqli_query($conn, $sqlDel);
-          
+        
+        $mutex = "COMMIT;";
+        mysqli_query($conn, $mutex);
+
         header("Location: ../index.php?submit=success");
 
     } else {
+
+        $mutex = "COMMIT;";
+        mysqli_query($conn, $mutex);
+
         echo "error: these products is not available in specified quantity: <br>";
 
         for ($i = 0; $i < count($deniedProducts); $i++) {

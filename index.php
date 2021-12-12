@@ -26,6 +26,7 @@ if(isset($_SESSION["idCustomer"])){
 		echo '<ul class="navbar">';
 		echo "<li> <a href = 'index.php'> Web-shoppen </a></li>";
 		echo "<li><a href = 'shopCart/shoppingCart.php'> Shopping cart </a> </li>";
+		echo "<li><a href = 'purchaseHistory/viewPersonalHistory.php'> Purchase history </a> </li>";
 		echo "<li><a href = 'includes/logout.inc.php'> Log out </a></li>";
 		echo "</ul>";	
 	}
@@ -67,15 +68,16 @@ else{
 		$queryResult = mysqli_query($conn, $query);
 
 		$row = mysqli_fetch_assoc($queryResult);
-
+	
 		if(mysqli_num_rows($queryResult)>0){
 			$add = "UPDATE shopping_cart SET amount = amount + 1 WHERE customer_idCustomer = '$idCust' AND product_idProduct = '$idProduct';";
 		}else{
 			$add = "INSERT INTO shopping_cart VALUES (null, '$idCust', '$idProduct', 1);";
 		}
+		
 		mysqli_query($conn, $add);
 	}
-
+	
 	function printer($sql, $conn){
 		$result = mysqli_query($conn, $sql);
 		$checkResult = mysqli_num_rows($result);
@@ -106,32 +108,6 @@ else{
 		}
 	}
 
-	/*if(isset($_POST["btnCat"]) && !empty($_POST["cat"])){
-		$cat = $_POST["cat"];
-		$sql ="SELECT * FROM products WHERE category = '$cat';";
-		echo "<h1> Viewing all " . $cat . "</h1>";
-		printer($sql, $conn);
-	}elseif(isset($_POST["pLf"])){
-		echo "<h1> Viewing products lowest to highest </h1>";
-		$sql = "SELECT * FROM products ORDER BY price ASC;";
-		printer($sql, $conn);
-	}elseif(isset($_POST["pHf"])){
-		echo "<h1> Viewing products highest to lowest </h1>";
-		$sql = "SELECT * FROM products products ORDER BY price DESC;";
-		printer($sql, $conn);
-	}elseif(isset($_POST["nAz"])){
-		echo "<h1> Viewing products A-Z </h1>";
-		$sql = "SELECT * FROM products ORDER BY p_name ASC;";
-		printer($sql, $conn);
-	}elseif(isset($_POST["nZa"])){
-		echo "<h1> Viewing products Z-A </h1>";
-		$sql = "SELECT * FROM products ORDER BY p_name DESC;";
-		printer($sql, $conn);
-	}else{
-		echo "<h1> All products </h1>";
-		$sql = "SELECT * FROM products;"; 
-		printer($sql, $conn);
-	}*/	
 	$sql = "SELECT * FROM products";
 	if(!empty($_POST["cat"])){
 		$cat = $_POST["cat"];
