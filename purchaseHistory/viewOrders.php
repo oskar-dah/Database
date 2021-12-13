@@ -1,7 +1,7 @@
 <?php
-    session_start();
+    
 	include_once '../includes/dbHandler.php';
-    require_once '../includes/functions.inc.php'; 
+    require_once '../includes/functions.inc.php'; //session_start(); is in functions.inc
     allowAdminOnly();
 ?>
 
