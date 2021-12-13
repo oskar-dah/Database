@@ -159,30 +159,34 @@ else{
 
 	if(isset($_POST["btnCat"])){
 		//$sql ="SELECT * FROM products WHERE category = '$cat';";
-		echo "<h1> Viewing all " . $cat . "</h1>";
+		if(!empty($_POST["cat"])){
+			echo "<h1> Viewing all " . $cat . "</h1>";
+		}else{
+			echo "<h1> All products </h1>";
+		}
 		//printer($sql, $conn);
 	}elseif(isset($_POST["pLf"])){
 		echo "<h1> Viewing products lowest to highest </h1>";
-		$sql = $sql .  " ORDER BY price ASC;";
+		$sql = $sql .  " ORDER BY price ASC";
 		//printer($sql, $conn);
 	}elseif(isset($_POST["pHf"])){
 		echo "<h1> Viewing products highest to lowest </h1>";
-		$sql = $sql .  " ORDER BY price DESC;";
+		$sql = $sql .  " ORDER BY price DESC";
 		//printer($sql, $conn);
 	}elseif(isset($_POST["nAz"])){
 		echo "<h1> Viewing products A-Z </h1>";
-		$sql = $sql .  " ORDER BY p_name ASC;";
+		$sql = $sql .  " ORDER BY p_name ASC";
 		//printer($sql, $conn);
 	}elseif(isset($_POST["nZa"])){
 		echo "<h1> Viewing products Z-A </h1>";
-		$sql = $sql . " ORDER BY p_name DESC;";
+		$sql = $sql . " ORDER BY p_name DESC";
 		//printer($sql, $conn);
 	}else{
 		echo "<h1> All products </h1>";
-		$sql = "SELECT * FROM products;";
-		$sql2 = "SELECT * FROM reviews;";
-		printer($sql, $sql2, $conn);
-	}	
+		$sql = $sql . ";";
+	}
+	$sql2 = "SELECT * FROM reviews;";
+	printer($sql, $sql2, $conn);
 ?>
 <script>
 // Get the modal

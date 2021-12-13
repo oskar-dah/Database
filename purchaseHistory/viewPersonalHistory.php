@@ -11,9 +11,7 @@
 <link rel="stylesheet" href="../design/index.css?v=<?php echo time(); ?>">
 </head>
 <body>
-<b>
-<p>
-<?php
+<?php 
 if(isset($_SESSION["idCustomer"])){
 	if($_SESSION["user_type"] == "A"){
 		echo "<ul class=\"navbar\">";
@@ -40,7 +38,11 @@ else{
 	echo "<li><a href = '../shopCart/shoppingCart.php'> Shopping cart </a> </li>";
 	echo "</ul>";
 }
-
+?>
+<h1> Purchase history </h1>
+<b>
+<p>
+<?php
     function printer($sql, $conn){//Modifiera denna till boughtproducts samt hämta namn på prod från prodID
 		$result = mysqli_query($conn, $sql);
 		$checkResult = mysqli_num_rows($result);
@@ -53,9 +55,8 @@ else{
                 $name = mysqli_fetch_assoc($prodResult);
 
 				if(mysqli_num_rows($prodResult) > 0){
-					echo "<br>" . "Shipping ID: " . $row['shipment_idShipment'] . "<br>";
+					echo "<br> Shipping ID: " . $row['shipment_idShipment'] . "<br>";
 					echo "Name: " . $name['p_name'] . "<br>";
-					//echo "Category: " . $row['category'] . "<br>";
 					echo "Price: " . $row['priceAtPurchase'] . "<br>";
 					echo "Amount: " . $row['amount'] . "<br>";
 				}
@@ -67,20 +68,35 @@ else{
 
     //SELECT idShipment FROM shipment WHERE customer_idCustomer = $ID;
     //mysqli_query();
-    $ID = $_SESSION["idCustomer"];
+	if(isset($_SESSION["idCustomer"])){
+		$ID = $_SESSION["idCustomer"];
 
-    $sql = "SELECT idShipment FROM shipment WHERE customer_idCustomer = '$ID';";
-    $sqlResult = mysqli_query($conn, $sql);
-    //$checkRes = mysqli_num_rows($sqlResult);
+		$user = "SELECT * FROM customer WHERE idCustomer = '$ID';";
+		$uRes = mysqli_query($conn, $user);
 
-    //while resultat finns från select statement
-    if(mysqli_num_rows($sqlResult) > 0){
-        while($row = mysqli_fetch_assoc($sqlResult)){
-            $tmp = $row['idShipment'];
-            $quer = "SELECT * FROM boughtproducts WHERE shipment_idShipment = '$tmp';";
-            printer($quer, $conn);
-        }
-    }
+		if(mysqli_num_rows($uRes) > 0){
+			while($uFet = mysqli_fetch_assoc($uRes)){
+				echo "<h2><br>" . "Name: " . $uFet['forname'] . " " .$uFet['lastname'];
+				echo "<br>" . "Phone number " . $uFet['phoneNr'] . "</h2>";
+			}
+
+		}
+
+
+		$sql = "SELECT idShipment FROM shipment WHERE customer_idCustomer = '$ID';";
+		$sqlResult = mysqli_query($conn, $sql);
+		//$checkRes = mysqli_num_rows($sqlResult);
+
+		//while resultat finns från select statement
+		if(mysqli_num_rows($sqlResult) > 0){
+			while($row = mysqli_fetch_assoc($sqlResult)){
+				$tmp = $row['idShipment'];
+				$quer = "SELECT * FROM boughtproducts WHERE shipment_idShipment = '$tmp';";
+				printer($quer, $conn);
+			}
+		}
+	}
+    
     
     //SELECT * FROM boughtproducts WHERE shipment_idShipment = resultat
     //mysqli_query();

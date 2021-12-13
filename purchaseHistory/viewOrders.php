@@ -15,7 +15,7 @@
 <?php
 if(isset($_SESSION["idCustomer"])){
 	if($_SESSION["user_type"] == "A"){
-		echo "<ul class=\"navbar\">";
+		echo "<ul class='navbar'>";
 		echo "<li> <a href = '../index.php'> Web-shoppen </a></li>";
 		echo "<li><a href = '../shopCart/shoppingCart.php'> Shopping cart </a> </li>";
 		echo "<li><a href = '../manageProducts.php'> Manage products </a> </li>";
