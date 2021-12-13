@@ -16,6 +16,7 @@ if(isset($_SESSION["idCustomer"])){
 		echo "<li> <a href = '../index.php'> Web-shoppen </a></li>";
 		echo "<li><a href = 'shoppingCart.php'> Shopping cart </a> </li>";
 		echo "<li><a href = '../manageProducts.php'> Manage products </a> </li>";
+		echo "<li><a href = '../purchaseHistory/viewOrders.php'> Order History </a> </li>";
 		echo "<li><a href = '../includes/logout.inc.php'> Log out </a></li>";
 		echo "</ul>";
 	}
@@ -77,7 +78,7 @@ else{
 
 		<form action="buyCart.php" method = "POST">
 
-		<input type="text" name="shippingAddr" placeholder="shipping Address" required><br><br>
+		<input type="text" name="shippingAddr" placeholder="shipping Address" required><br>
 
 		<input type="submit" 
 			value="Buy cart">
@@ -85,7 +86,7 @@ else{
 	<?php
 	}
 
-	function deleteCartButton(){ ?>
+	function deleteCartButton(){ ?><br>
 
 		<form action="deleteCart.php" method = "POST">
 		 <input type="submit" 
@@ -103,7 +104,7 @@ else{
 			value=<?php echo $productID; ?>>
 
 		 <input type="submit" 
-			value="Ta Bort">
+			value="Remove">
 		</form>
 	<?php
 	}  

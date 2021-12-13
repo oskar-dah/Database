@@ -120,7 +120,9 @@ ul.navbar li a{
   padding-bottom: 10px;
   transition: 50ms;
 }
-
+body{
+  background-color: rgb(85, 68, 68);
+}
 .dropperB:hover{
   background-color: #ddd;
 }
@@ -190,4 +192,23 @@ ul.navbar li a{
   height: 50px;
   width: 150px; 
   font-size: 16px;
+}
+.inline {
+  display: inline;
+}
+
+.link-button {
+  background: none;
+  border: none;
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
+  font-size: 1em;
+  font-family: serif;
+}
+.link-button:focus {
+  outline: none;
+}
+.link-button:active {
+  color:red;
 }

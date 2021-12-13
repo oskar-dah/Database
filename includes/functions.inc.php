@@ -99,13 +99,6 @@ function signIn($conn, $uid, $pwd){
         exit();
     }
 }
-
-function review($conn, $rating, $comment, $productID)
-{
-    $sql = "INSERT INTO reviews VALUES ('" . $_SESSION["idCustomer"] ."', '$productID', '$comment', '$rating');";
-    mysqli_query($conn, $sql);
-}
-
 ?>
 </body>
 </html>

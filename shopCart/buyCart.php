@@ -45,6 +45,9 @@ $checkResult = mysqli_num_rows($shoppersCart);
 if($checkResult > 0){
     $allowPurchase = true;
     $deniedProducts = array();
+    
+    $mutex = "START TRANSACTION;";
+    mysqli_query($conn, $mutex);
 
     while($productNr = mysqli_fetch_assoc($shoppersCart)){
         $stock = "SELECT stock, p_name FROM products WHERE idProduct=$productNr[product_idProduct];";
@@ -67,9 +70,8 @@ if($checkResult > 0){
 
         $sqlShipID = "SELECT idShipment FROM shipment ORDER BY idShipment DESC LIMIT 1;";
         $currShipmentID = mysqli_query($conn, $sqlShipID);
-        echo 'th';
         $currShipID = mysqli_fetch_assoc($currShipmentID);
-        echo $currShipID['idShipment'];
+        //echo $currShipID['idShipment'];
 
         $sql = "SELECT * FROM shopping_cart WHERE customer_idCustomer=$shopper;";
         $shoppersCart = mysqli_query($conn, $sql);
@@ -87,16 +89,23 @@ if($checkResult > 0){
             $sqlUpdate = "UPDATE products SET stock = stock - $a WHERE idProduct = $idCurrProduct;";
             mysqli_query($conn, $sqlUpdate);
 
-            $sqlIns = "INSERT INTO boughtproducts (idBoughtProducts, products_idProduct, shipment_idShipment, priceAtPurchase) VALUES (null, '$idCurrProduct', '$currShipID[idShipment]', '$priceAtPurchase[price]');";
+            $sqlIns = "INSERT INTO boughtproducts (idBoughtProducts, products_idProduct, shipment_idShipment, priceAtPurchase, amount) VALUES (null, '$idCurrProduct', '$currShipID[idShipment]', '$priceAtPurchase[price]', $a);";
             mysqli_query($conn, $sqlIns);
         }
 
         $sqlDel = "DELETE FROM shopping_cart WHERE customer_idCustomer = '$shopper';";
   	    mysqli_query($conn, $sqlDel);
-          
+        
+        $mutex = "COMMIT;";
+        mysqli_query($conn, $mutex);
+
         header("Location: ../index.php?submit=success");
 
     } else {
+
+        $mutex = "COMMIT;";
+        mysqli_query($conn, $mutex);
+
         echo "error: these products is not available in specified quantity: <br>";
 
         for ($i = 0; $i < count($deniedProducts); $i++) {
