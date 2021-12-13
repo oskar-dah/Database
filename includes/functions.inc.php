@@ -82,7 +82,8 @@ function signIn($conn, $uid, $pwd){
     $databasePWD = $uidExists['password'];
     $checkPwd = password_verify($pwd, $databasePWD);
     
-    if($databasePWD ==! $pwd){
+    
+    if($databasePWD !== $pwd){
         header("location: ../signIn.php?error=falselogin");
         exit();
     }
