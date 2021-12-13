@@ -70,9 +70,7 @@
 		$id = $_POST["prodID"];
 		$rating = $_POST["rate"];
 		$comment = $_POST["comment"];
-		echo "gt" . $_POST["prodID"];
 		reviewProd($conn, $id, $rating, $comment, $_SESSION["idCustomer"]);
-		echo "AAA";
 	}
     //SELECT idShipment FROM shipment WHERE customer_idCustomer = $ID;
     //mysqli_query();
