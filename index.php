@@ -48,7 +48,7 @@
 		
 		mysqli_query($conn, $add);
 	}
-
+	
 	function printer($sql, $sql2, $conn){
 		$result = mysqli_query($conn, $sql);
 		$result2 = mysqli_query($conn, $sql2);
@@ -71,7 +71,7 @@
 					echo '<div class="modal-content">';
 					echo '<span onclick = "closemodal('.$row['idProduct'].')" class="close">&times;</span>';
 					  while($row2 = mysqli_fetch_assoc($result2)){
-						  if($row2["product_idProduct"] = $row['idProduct']){
+						  if($row2["product_idProduct"] == $row['idProduct']){
 							echo "<div class = 'commentSec'>";
 							echo "uid: " . $row2['customer_idCustomer'] . "<br>";
 							echo "Rating: " . $row2['rating'] . "<br>";
@@ -81,16 +81,6 @@
 						  } 
 					  }
 					  mysqli_data_seek($result2,0);
-					  while($row2 = mysqli_fetch_assoc($result2)){
-						if($row2["product_idProduct"] == $row['idProduct']){
-						  echo "<div class = 'commentSec'>";
-						  echo "uid: " . $row2['customer_idCustomer'] . "<br>";
-						  echo "Rating: " . $row2['rating'] . "<br>";
-						  echo "Comment:" .$row2['comment'] . "<br>";
-						  echo "ProdID:" .$row2['product_idProduct'];
-						  echo "</div>";
-						} 
-					}
 					echo '</form>';
 					echo '</div>';
 					echo '</div>';
