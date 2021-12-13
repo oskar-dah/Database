@@ -2,7 +2,7 @@
 <html>
 <body>
 <?php 
-
+session_start();
 function emptySignUp($uid, $pwd, $name, $lastName, $mail, $phoneNr, $address){
     $result;
     if(empty($uid) || empty($pwd) || empty($name) || empty($lastName) || empty($mail) || empty($phoneNr) || empty($address)){
@@ -98,6 +98,12 @@ function signIn($conn, $uid, $pwd){
         header("location: ../index.php");
         exit();
     }
+}
+
+function review($conn, $rating, $comment, $productID)
+{
+    $sql = "INSERT INTO reviews VALUES ('" . $_SESSION["idCustomer"] ."', '$productID', '$comment', '$rating');";
+    mysqli_query($conn, $sql);
 }
 
 ?>
