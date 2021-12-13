@@ -81,7 +81,8 @@ function signIn($conn, $uid, $pwd){
     $databasePWD = $uidExists['password'];
     $checkPwd = password_verify($pwd, $databasePWD);
     
-    if($databasePWD ==! $pwd){
+    
+    if($databasePWD !== $pwd){
         header("location: ../signIn.php?error=falselogin");
         exit();
     }
@@ -96,6 +97,20 @@ function signIn($conn, $uid, $pwd){
         $_SESSION['user_type'] = $uidExists['user_type'];
         header("location: ../index.php");
         exit();
+    }
+}
+
+function allowAdminOnly(){
+    if(isset($_SESSION["idCustomer"])){
+        if($_SESSION["user_type"] !== "A"){
+            ?> 
+            <html><meta http-equiv="refresh" content="0; url=../index.php" /> </html>
+            <?php
+        }
+    } else {
+         ?>
+        <html><meta http-equiv="refresh" content="0; url=../index.php" /> </html>
+        <?php
     }
 }
 ?>

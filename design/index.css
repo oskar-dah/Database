@@ -212,3 +212,7 @@ body{
 .link-button:active {
   color:red;
 }
+
+h2{
+  margin-bottom: 0px;
+}
