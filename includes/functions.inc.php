@@ -99,6 +99,20 @@ function signIn($conn, $uid, $pwd){
         exit();
     }
 }
+
+function allowAdminOnly(){
+    if(isset($_SESSION["idCustomer"])){
+        if($_SESSION["user_type"] !== "A"){
+            ?> 
+            <html><meta http-equiv="refresh" content="0; url=../index.php" /> </html>
+            <?php
+        }
+    } else {
+         ?>
+        <html><meta http-equiv="refresh" content="0; url=../index.php" /> </html>
+        <?php
+    }
+}
 ?>
 </body>
 </html>
