@@ -46,7 +46,9 @@ else{
     function printer($sql, $conn){//Modifiera denna till boughtproducts samt hämta namn på prod från prodID
 		$result = mysqli_query($conn, $sql);
 		$checkResult = mysqli_num_rows($result);
-        
+
+        $totalPrice = 0;
+		$shipnum = 0;
 		if($checkResult > 0){
 			while($row = mysqli_fetch_assoc($result)){
                 $prodID = $row['products_idProduct'];
@@ -55,14 +57,20 @@ else{
                 $name = mysqli_fetch_assoc($prodResult);
 
 				if(mysqli_num_rows($prodResult) > 0){
-					echo "<br> Shipping ID: " . $row['shipment_idShipment'] . "<br>";
+					if($shipnum != $row['shipment_idShipment']){
+						echo "<h2> Shipping ID: " . $row['shipment_idShipment'] . "</h2>";
+					}
 					echo "Name: " . $name['p_name'] . "<br>";
 					echo "Price: " . $row['priceAtPurchase'] . "<br>";
-					echo "Amount: " . $row['amount'] . "<br>";
+					echo "Amount: " . $row['amount'] . "<br><br>";
+
+					$shipnum = $row['shipment_idShipment'];
+					$totalPrice += $row['priceAtPurchase'] * $row['amount'];
 				}
 			}
+			echo "<h2> Total price for order " . $shipnum .": " . $totalPrice ."</h2><br>";
 		}else{
-			echo $sql . "No products was found in that category";
+			echo $sql . "Error in boughtproducts";
 		}
 	}
 
