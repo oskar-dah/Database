@@ -2,7 +2,6 @@
 <html>
 <body>
 <?php 
-session_start();
 function emptySignUp($uid, $pwd, $name, $lastName, $mail, $phoneNr, $address){
     $result;
     if(empty($uid) || empty($pwd) || empty($name) || empty($lastName) || empty($mail) || empty($phoneNr) || empty($address)){

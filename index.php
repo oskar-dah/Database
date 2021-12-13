@@ -81,7 +81,6 @@ else{
 	function reviewProd($conn, $id, $rating, $comment, $idCust){
 		$sql = "INSERT INTO reviews(customer_idCustomer, product_idProduct, comment, rating) VALUES ('$idCust', '$id', '$comment', '$rating');";
 		mysqli_query($conn, $sql);
-		exit();
 	}
 
 	function printer($sql, $sql2, $conn){
@@ -89,7 +88,6 @@ else{
 		$result2 = mysqli_query($conn, $sql2);
 		$checkResult = mysqli_num_rows($result);
 		$checkResult2 = mysqli_num_rows($result2);
-		$row2 = mysqli_fetch_assoc($result2);
 		if($checkResult > 0){
 			while($row = mysqli_fetch_assoc($result)){
 				if($row['stock'] > 0){
@@ -102,10 +100,10 @@ else{
 					echo '<button name = "add" class = "button" type="submit" value ='. $row['idProduct'] .'>Add to cart</button>';
 					echo "</form>";
 					echo "<form action = 'index.php' method = 'POST'>";
-					echo '<button class =" button" id = "myBtn" >Review Item  </button>';
-					echo '<div id = "myModal" class="modal">';
+					echo '<button onclick = "openmodal('.$row['idProduct'].')" type="button" class = "myBtn button"  >Review Item  </button>';
+					echo '<div id = "m'.$row['idProduct'].'" class = "myModal modal">';
 					echo '<div class="modal-content">';
-					echo '<span class="close">&times;</span>';
+					echo '<span onclick = "closemodal('.$row['idProduct'].')" class="close">&times;</span>';
 					echo "<div class = 'reviewSec'>";
 					echo '<p>Review product</p>';
   					echo '<input type="text" name="rate" placeholder="Rating"><br><br>';
@@ -114,19 +112,31 @@ else{
 					echo '<input type="hidden" name="prodID" value ='. $row['idProduct'] .'>';
 					echo "</div>";	 
 					  while($row2 = mysqli_fetch_assoc($result2)){
-						    echo "<div class = 'commentSec'>";
+						  if($row2["product_idProduct"] = $row['idProduct']){
+							echo "<div class = 'commentSec'>";
 							echo "uid: " . $row2['customer_idCustomer'] . "<br>";
 							echo "Rating: " . $row2['rating'] . "<br>";
 							echo "Comment:" .$row2['comment'] . "<br>";
+							echo "ProdID:" .$row2['product_idProduct'];
 							echo "</div>";
+						  } 
 					  }
-					
+					  mysqli_data_seek($result2,0);
+					  while($row2 = mysqli_fetch_assoc($result2)){
+						if($row2["product_idProduct"] == $row['idProduct']){
+						  echo "<div class = 'commentSec'>";
+						  echo "uid: " . $row2['customer_idCustomer'] . "<br>";
+						  echo "Rating: " . $row2['rating'] . "<br>";
+						  echo "Comment:" .$row2['comment'] . "<br>";
+						  echo "ProdID:" .$row2['product_idProduct'];
+						  echo "</div>";
+						} 
+					}
 					echo '</form>';
 					echo '</div>';
 					echo '</div>';
 				}
 			}
-			
 			if(isset($_POST["add"])){
 				if(isset($_SESSION["idCustomer"])){
 					echo "Produkten" . $_POST["add"];
@@ -185,31 +195,23 @@ else{
 	}	
 ?>
 <script>
-// Get the modal
-var modal = document.getElementById("myModal");
-
-// Get the button that opens the modal
-var btn = document.getElementById("myBtn");
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-
-// When the user clicks the button, open the modal 
-btn.onclick = function() {
-  modal.style.display = "block";
-  event.preventDefault()
-}
-
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-  modal.style.display = "none";
-}
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
+console.log("loaded");
+function openmodal(id){
+	console.log(id);
+	var modal = document.getElementById("m" + id);
+	console.log(modal);
+	modal.style.display = "block";
+	window.onclick = function(event) {
   if (event.target == modal) {
     modal.style.display = "none";
   }
+}
+}
+function closemodal(id){
+	console.log(id);
+	var modal = document.getElementById("m" + id);
+	console.log(modal);
+	modal.style.display = "none";
 }
 </script>
 
