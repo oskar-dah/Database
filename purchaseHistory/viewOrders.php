@@ -45,16 +45,15 @@ $shipmentLimit = 50;
 
 ?>
 <h1> Order History </h1>
-<h3>showing: <?php echo $shipmentLimit?> latest</h3>
+<h3>showing <?php echo $shipmentLimit?> latest</h3>
 
 <form action = "order.php" method = "POST">
-<?php //here is a bug where shipping address is not sent ?>
 	<input type="number" name="orderNr" placeholder="Order Number" min="0" required><br><br>
 	<button class = "button" name = "test" type="submit" value="Submit"> Search </button>
 </form>
 
 <?php
-$sql = "SELECT * FROM shipment ORDER BY idShipment DESC LIMIT $shipmentLimit;";
+$sql = "SELECT idShipment FROM shipment ORDER BY idShipment DESC LIMIT $shipmentLimit;";
 printer($sql, $conn);
 
 
@@ -66,14 +65,11 @@ function printer($sql, $conn){
         while($row = mysqli_fetch_assoc($result)){
 
 			$orderNr = $row['idShipment'];
-			$shippingAddr = rawurlencode($row['shippingAddr']);
 
             echo "<br>" . "Order Number: ";
             ?>
 
 			<form method="post" action="order.php" class="inline">
-
-  			<input type="hidden" name="shippingAddr" value=<?php echo $shippingAddr; ?> >
   			
 			<button type="submit" name="orderNr" value=<?php echo $orderNr; ?> class="link-button">
     			<?php echo $orderNr; ?>
