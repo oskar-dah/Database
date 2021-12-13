@@ -49,11 +49,6 @@
 		mysqli_query($conn, $add);
 	}
 
-	function reviewProd($conn, $id, $rating, $comment, $idCust){
-		$sql = "INSERT INTO reviews(customer_idCustomer, product_idProduct, comment, rating) VALUES ('$idCust', '$id', '$comment', '$rating');";
-		mysqli_query($conn, $sql);
-	}
-
 	function printer($sql, $sql2, $conn){
 		$result = mysqli_query($conn, $sql);
 		$result2 = mysqli_query($conn, $sql2);
@@ -71,17 +66,10 @@
 					echo '<button name = "add" class = "button" type="submit" value ='. $row['idProduct'] .'>Add to cart</button>';
 					echo "</form>";
 					echo "<form action = 'index.php' method = 'POST'>";
-					echo '<button onclick = "openmodal('.$row['idProduct'].')" type="button" class = "myBtn button"  >Review Item  </button>';
+					echo '<button onclick = "openmodal('.$row['idProduct'].')" type="button" class = "myBtn button"  > View Reviews</button>';
 					echo '<div id = "m'.$row['idProduct'].'" class = "myModal modal">';
 					echo '<div class="modal-content">';
 					echo '<span onclick = "closemodal('.$row['idProduct'].')" class="close">&times;</span>';
-					echo "<div class = 'reviewSec'>";
-					echo '<p>Review product</p>';
-  					echo '<input type="text" name="rate" placeholder="Rating"><br><br>';
-  					echo '<input type="text" name="comment" placeholder="Comment"><br><br>';
-					echo '<button class = "button2" name = "review" type="submit" value ="Submit" > Leave review </button>';
-					echo '<input type="hidden" name="prodID" value ='. $row['idProduct'] .'>';
-					echo "</div>";	 
 					  while($row2 = mysqli_fetch_assoc($result2)){
 						  if($row2["product_idProduct"] = $row['idProduct']){
 							echo "<div class = 'commentSec'>";
@@ -113,18 +101,6 @@
 					echo "Produkten" . $_POST["add"];
 					$id = $_POST["add"];
 					addToCart($id, $conn, $_SESSION["idCustomer"]);
-				}else{
-					echo '<meta http-equiv="refresh" content="0; url=signUp.php" />';
-				}
-			}
-
-			if(isset($_POST["review"])){
-				if(isset($_SESSION["idCustomer"])){
-					$id = $_POST["prodID"];
-					$rating = $_POST["rate"];
-					$comment = $_POST["comment"];
-					echo "Produkten" . $_POST["prodID"];
-					reviewProd($conn, $id, $rating, $comment, $_SESSION["idCustomer"]);
 				}else{
 					echo '<meta http-equiv="refresh" content="0; url=signUp.php" />';
 				}
