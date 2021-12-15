@@ -3,7 +3,7 @@
 	include_once '../includes/dbHandler.php';
     //Starta session på samma sätt som de gjort i andra sidor
     //Hämta conn....
-
+	include_once '../includes/overlay.php';
 ?>
 <!DOCTYPE html>
 <html>
@@ -11,38 +11,12 @@
 <link rel="stylesheet" href="../design/index.css?v=<?php echo time(); ?>">
 </head>
 <body>
-<?php 
-if(isset($_SESSION["idCustomer"])){
-	if($_SESSION["user_type"] == "A"){
-		echo "<ul class=\"navbar\">";
-		echo "<li> <a href = '../index.php'> Web-shoppen </a></li>";
-		echo "<li><a href = '../shopCart/shoppingCart.php'> Shopping cart </a> </li>";
-		echo "<li><a href = '../manageProducts.php'> Manage products </a> </li>";
-		echo "<li><a href = '../manageUsers.php'> Manage users </a> </li>";
-		echo "<li><a href = '../includes/logout.inc.php'> Log out </a></li>";
-		echo "</ul>";
-	}
-	else if($_SESSION["user_type"] == "U"){
-		echo '<ul class="navbar">';
-		echo "<li> <a href = '../index.php'> Web-shoppen </a></li>";
-		echo "<li><a href = '../shopCart/shoppingCart.php'> Shopping cart </a> </li>";
-		echo "<li><a href = '../includes/logout.inc.php'> Log out </a></li>";
-		echo "</ul>";	
-	}
-}
-else{
-	echo '<ul class="navbar">';
-	echo "<li> <a href = '../index.php'> Web-shoppen </a></li>";
-	echo "<li><a href = '../signIn.php'> Sign in </a> </li>";
-	echo "<li><a href = '../signUp.php'> Sign up </a> </li>";
-	echo "<li><a href = '../shopCart/shoppingCart.php'> Shopping cart </a> </li>";
-	echo "</ul>";
-}
-?>
+
 <h1> Purchase history </h1>
 <b>
 <p>
 <?php
+	
     function printer($sql, $conn){//Modifiera denna till boughtproducts samt hämta namn på prod från prodID
 		$result = mysqli_query($conn, $sql);
 		$checkResult = mysqli_num_rows($result);
@@ -66,14 +40,38 @@ else{
 
 					$shipnum = $row['shipment_idShipment'];
 					$totalPrice += $row['priceAtPurchase'] * $row['amount'];
-				}
+					///////////////////
+				
+				} 
+				echo "<form action = 'viewPersonalHistory.php' method = 'POST'>";
+				echo '<button onclick = "openmodal('.$row['products_idProduct'].')" type="button" class = "myBtn button"  >Review Item  </button>';
+				echo '<div id = "m'.$row['products_idProduct'].'" class = "myModal modal">';
+				echo '<div class="modal-content">';
+				echo '<span onclick = "closemodal('.$row['products_idProduct'].')" class="close">&times;</span>';
+				echo "<div class = 'reviewSec'>";
+				echo '<p>Review product</p>';
+				echo '<input type="text" name="rate" placeholder="Rating 1-5"><br><br>';
+				echo '<input type="text" name="comment" placeholder="Comment"><br><br>';
+				echo '<button class = "button2" name = "review" type="submit" value ="Submit" > Leave review </button>';
+				echo '<input type="hidden" name="prodID" value ='. $row['products_idProduct'] .'>';
+				echo "</div>";	 
+				echo '</form>';
+				echo '</div>';
+				echo '</div>';		
 			}
 			echo "<h2> Total price for order " . $shipnum .": " . $totalPrice ."</h2><br>";
+		
 		}else{
 			echo $sql . "Error in boughtproducts";
 		}
-	}
 
+	}
+	if(isset($_POST["review"])){
+		$id = $_POST["prodID"];
+		$rating = $_POST["rate"];
+		$comment = $_POST["comment"];
+		reviewProd($conn, $id, $rating, $comment, $_SESSION["idCustomer"]);
+	}
     //SELECT idShipment FROM shipment WHERE customer_idCustomer = $ID;
     //mysqli_query();
 	if(isset($_SESSION["idCustomer"])){
@@ -87,7 +85,6 @@ else{
 				echo "<h2><br>" . "Name: " . $uFet['forname'] . " " .$uFet['lastname'];
 				echo "<br>" . "Phone number " . $uFet['phoneNr'] . "</h2>";
 			}
-
 		}
 
 
@@ -109,8 +106,45 @@ else{
     //SELECT * FROM boughtproducts WHERE shipment_idShipment = resultat
     //mysqli_query();
     //printer();
+	function reviewProd($conn, $id, $rating, $comment, $idCust){
+		$select = "SELECT * from reviews where product_idProduct = '$id' and customer_idCustomer = '$idCust';";
+		$result = mysqli_query($conn, $select);
+	
+		if(mysqli_num_rows($result) > 0){
+			echo "Du har redan lämnat en review";
+		}elseif($rating > 5 || $rating 	< 0){
+			echo "Rating måste vara mellan 1 - 5";
+		}elseif(empty($rating)){
+			echo "Rating for inte vara tom!";
+		}
+		else{
+			$sql = "INSERT INTO reviews(customer_idCustomer, product_idProduct, comment, rating) VALUES ('$idCust', '$id', '$comment', '$rating');";
+			mysqli_query($conn, $sql);
+		}
+
+	
+	}
 ?>
 
-
+<script>
+console.log("loaded");
+function openmodal(id){
+	console.log(id);
+	var modal = document.getElementById("m" + id);
+	console.log(modal);
+	modal.style.display = "block";
+	window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+}
+function closemodal(id){
+	console.log(id);
+	var modal = document.getElementById("m" + id);
+	console.log(modal);
+	modal.style.display = "none";
+}
+</script>
 </body>
 </html>

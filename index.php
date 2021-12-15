@@ -1,6 +1,7 @@
 <?php
-	include_once 'includes/dbHandler.php';
 	session_start();
+	include_once 'includes/dbHandler.php';
+	include_once 'includes/overlay.php';
 ?>
 
 <!DOCTYPE html>
@@ -10,36 +11,6 @@
 </head>
 <body>
 	
-<?php
-if(isset($_SESSION["idCustomer"])){
-	if($_SESSION["user_type"] == "A"){
-		echo "<ul class=\"navbar\">";
-		echo "<li> <a href = 'index.php'> Web-shoppen </a></li>";
-		echo "<li><a href = 'shopCart/shoppingCart.php'> Shopping cart </a> </li>";
-		echo "<li><a href = 'manageProducts.php'> Manage products </a> </li>";
-		echo "<li><a href = 'manageUsers.php'> Manage users </a> </li>";
-		echo "<li><a href = 'purchaseHistory/viewOrders.php'> Order History </a> </li>";
-		echo "<li><a href = 'includes/logout.inc.php'> Log out </a></li>";
-		echo "</ul>";
-	}
-	else if($_SESSION["user_type"] == "U"){
-		echo '<ul class="navbar">';
-		echo "<li> <a href = 'index.php'> Web-shoppen </a></li>";
-		echo "<li><a href = 'shopCart/shoppingCart.php'> Shopping cart </a> </li>";
-		echo "<li><a href = 'purchaseHistory/viewPersonalHistory.php'> Purchase history </a> </li>";
-		echo "<li><a href = 'includes/logout.inc.php'> Log out </a></li>";
-		echo "</ul>";	
-	}
-}
-else{
-	echo '<ul class="navbar">';
-	echo "<li> <a href = 'index.php'> Web-shoppen </a></li>";
-	echo "<li><a href = 'signIn.php'> Sign in </a> </li>";
-	echo "<li><a href = 'signUp.php'> Sign up </a> </li>";
-	echo "<li><a href = 'shopCart/shoppingCart.php'> Shopping cart </a> </li>";
-	echo "</ul>";
-}
-?>
 <div class="search">
 	<h1> Here we do some searching </h1>	
 	<form action = "index.php" method = "POST">
@@ -77,19 +48,12 @@ else{
 		
 		mysqli_query($conn, $add);
 	}
-
-	function reviewProd($conn, $id, $rating, $comment, $idCust){
-		$sql = "INSERT INTO reviews(customer_idCustomer, product_idProduct, comment, rating) VALUES ('$idCust', '$id', '$comment', '$rating');";
-		mysqli_query($conn, $sql);
-		exit();
-	}
-
+	
 	function printer($sql, $sql2, $conn){
 		$result = mysqli_query($conn, $sql);
 		$result2 = mysqli_query($conn, $sql2);
 		$checkResult = mysqli_num_rows($result);
 		$checkResult2 = mysqli_num_rows($result2);
-		$row2 = mysqli_fetch_assoc($result2);
 		if($checkResult > 0){
 			while($row = mysqli_fetch_assoc($result)){
 				if($row['stock'] > 0){
@@ -102,31 +66,26 @@ else{
 					echo '<button name = "add" class = "button" type="submit" value ='. $row['idProduct'] .'>Add to cart</button>';
 					echo "</form>";
 					echo "<form action = 'index.php' method = 'POST'>";
-					echo '<button class =" button" id = "myBtn" >Review Item  </button>';
-					echo '<div id = "myModal" class="modal">';
+					echo '<button onclick = "openmodal('.$row['idProduct'].')" type="button" class = "myBtn button"  > View Reviews</button>';
+					echo '<div id = "m'.$row['idProduct'].'" class = "myModal modal">';
 					echo '<div class="modal-content">';
-					echo '<span class="close">&times;</span>';
-					echo "<div class = 'reviewSec'>";
-					echo '<p>Review product</p>';
-  					echo '<input type="text" name="rate" placeholder="Rating"><br><br>';
-  					echo '<input type="text" name="comment" placeholder="Comment"><br><br>';
-					echo '<button class = "button2" name = "review" type="submit" value ="Submit" > Leave review </button>';
-					echo '<input type="hidden" name="prodID" value ='. $row['idProduct'] .'>';
-					echo "</div>";	 
+					echo '<span onclick = "closemodal('.$row['idProduct'].')" class="close">&times;</span>';
 					  while($row2 = mysqli_fetch_assoc($result2)){
-						    echo "<div class = 'commentSec'>";
+						  if($row2["product_idProduct"] == $row['idProduct']){
+							echo "<div class = 'commentSec'>";
 							echo "uid: " . $row2['customer_idCustomer'] . "<br>";
 							echo "Rating: " . $row2['rating'] . "<br>";
 							echo "Comment:" .$row2['comment'] . "<br>";
+							echo "ProdID:" .$row2['product_idProduct'];
 							echo "</div>";
+						  } 
 					  }
-					
+					  mysqli_data_seek($result2,0);
 					echo '</form>';
 					echo '</div>';
 					echo '</div>';
 				}
 			}
-			
 			if(isset($_POST["add"])){
 				if(isset($_SESSION["idCustomer"])){
 					//echo "Produkten" . $_POST["add"];
@@ -136,6 +95,7 @@ else{
 					echo '<meta http-equiv="refresh" content="0; url=signUp.php" />';
 				}
 			}
+<<<<<<< HEAD
 
 			if(isset($_POST["review"])){
 				if(isset($_SESSION["idCustomer"])){
@@ -150,6 +110,8 @@ else{
 			}
 		}else{
 			echo "No items found in that category";
+=======
+>>>>>>> a6bce4fc868c2e0675ee0e6cfe2a01230986e5b9
 		}
 	}
 
@@ -191,31 +153,23 @@ else{
 	printer($sql, $sql2, $conn);
 ?>
 <script>
-// Get the modal
-var modal = document.getElementById("myModal");
-
-// Get the button that opens the modal
-var btn = document.getElementById("myBtn");
-
-// Get the <span> element that closes the modal
-var span = document.getElementsByClassName("close")[0];
-
-// When the user clicks the button, open the modal 
-btn.onclick = function() {
-  modal.style.display = "block";
-  event.preventDefault()
-}
-
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-  modal.style.display = "none";
-}
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
+console.log("loaded");
+function openmodal(id){
+	console.log(id);
+	var modal = document.getElementById("m" + id);
+	console.log(modal);
+	modal.style.display = "block";
+	window.onclick = function(event) {
   if (event.target == modal) {
     modal.style.display = "none";
   }
+}
+}
+function closemodal(id){
+	console.log(id);
+	var modal = document.getElementById("m" + id);
+	console.log(modal);
+	modal.style.display = "none";
 }
 </script>
 

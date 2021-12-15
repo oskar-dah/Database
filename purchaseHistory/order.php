@@ -1,6 +1,7 @@
 <?php
 	include_once '../includes/dbHandler.php';
     require_once '../includes/functions.inc.php'; //session_start(); is in functions.inc
+	include_once '../includes/overlay.php';
     allowAdminOnly();
 ?>
 
@@ -12,34 +13,6 @@
 <body>
 
 <?php 
-if(isset($_SESSION["idCustomer"])){
-	if($_SESSION["user_type"] == "A"){
-		echo "<ul class=\"navbar\">";
-		echo "<li> <a href = '../index.php'> Web-shoppen </a></li>";
-		echo "<li><a href = '../shopCart/shoppingCart.php'> Shopping cart </a> </li>";
-		echo "<li><a href = '../manageProducts.php'> Manage products </a> </li>";
-		echo "<li><a href = '../manageUsers.php'> Manage users </a> </li>";
-		echo "<li><a href = 'viewOrders.php'> Order History </a> </li>";
-		echo "<li><a href = '../includes/logout.inc.php'> Log out </a></li>";
-		echo "</ul>";
-	}
-	else if($_SESSION["user_type"] == "U"){
-		echo '<ul class="navbar">';
-		echo "<li> <a href = '../index.php'> Web-shoppen </a></li>";
-		echo "<li><a href = '../shopCart/shoppingCart.php'> Shopping cart </a> </li>";
-		echo "<li><a href = '../includes/logout.inc.php'> Log out </a></li>";
-		echo "</ul>";	
-	}
-}
-else{
-	echo '<ul class="navbar">';
-	echo "<li> <a href = '../index.php'> Web-shoppen </a></li>";
-	echo "<li><a href = '../signIn.php'> Sign in </a> </li>";
-	echo "<li><a href = '../signUp.php'> Sign up </a> </li>";
-	echo "<li><a href = '../shopCart/shoppingCart.php'> Shopping cart </a> </li>";
-	echo "</ul>";
-}
-
 $orderNr = $_POST['orderNr'];
 
 $sqlShipAddress = "SELECT shippingAddr, customer_idCustomer FROM shipment WHERE idShipment = $orderNr;";
@@ -87,6 +60,7 @@ function printProducts($sql, $conn){
     $checkResult = mysqli_num_rows($result);
 
     if($checkResult > 0){
+		$totalPrice = 0;
         while($row = mysqli_fetch_assoc($result)){
 
 			$idProduct = $row['products_idProduct'];
@@ -103,11 +77,13 @@ function printProducts($sql, $conn){
 			echo "quantity: $quantity" . "<br>";
 			echo '<span style="font-size: 19px; color: #000000; font-weight: bold;">Price: ' . $price*$quantity . 'kr<br></span>' ;
             
+			$totalPrice = $totalPrice + $price*$quantity;
 			
-			?>
-			<?php
-        }
-		
+			
+        }?>
+		<hr>
+		<?php
+		echo '<span style="font-size: 25px; color: #000000; font-weight: bold;">Sum order: ' . $totalPrice . 'kr<br></span>' ;
 
     } else {
 		?> <h2> Sorry, could not find order <?php echo $_POST['orderNr']?> </h2> <?php
