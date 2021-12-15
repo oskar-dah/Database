@@ -85,7 +85,6 @@
 				echo "<h2><br>" . "Name: " . $uFet['forname'] . " " .$uFet['lastname'];
 				echo "<br>" . "Phone number " . $uFet['phoneNr'] . "</h2>";
 			}
-
 		}
 
 
@@ -115,6 +114,8 @@
 			echo "Du har redan lämnat en review";
 		}elseif($rating > 5 || $rating 	< 0){
 			echo "Rating måste vara mellan 1 - 5";
+		}elseif(empty($rating)){
+			echo "Rating for inte vara tom!";
 		}
 		else{
 			$sql = "INSERT INTO reviews(customer_idCustomer, product_idProduct, comment, rating) VALUES ('$idCust', '$id', '$comment', '$rating');";
