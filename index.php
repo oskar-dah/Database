@@ -129,7 +129,7 @@ else{
 			
 			if(isset($_POST["add"])){
 				if(isset($_SESSION["idCustomer"])){
-					echo "Produkten" . $_POST["add"];
+					//echo "Produkten" . $_POST["add"];
 					$id = $_POST["add"];
 					addToCart($id, $conn, $_SESSION["idCustomer"]);
 				}else{
@@ -148,6 +148,8 @@ else{
 					echo '<meta http-equiv="refresh" content="0; url=signUp.php" />';
 				}
 			}
+		}else{
+			echo "No items found in that category";
 		}
 	}
 
