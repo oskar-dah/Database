@@ -63,9 +63,21 @@
 </form>
 </div>
 
+<div class = "menu2">
+<h1>Delete review</h1>
+
+<form action = "includes/review.inc.php" method = "POST">
+  
+  <input type="text" name="rID" placeholder="Review ID"><br><br>
+  
+  <button name = "reviewID" class="button" type="submit" value="Submit"> Submit </button>
+</form>
+</div>
+
 <div class = "printout">
 <b>
 <p>
+<h3> Product information &nbsp; </h3> <br> 
 <?php
 	$sql = "SELECT * FROM products;";
 	$result = mysqli_query($conn, $sql);
@@ -84,5 +96,27 @@
 </p>
 </b>
 </div>
+
+<div class = "printout">
+<b>
+<p>
+	<h3> Review information </h3>
+<?php
+	$sql = "SELECT * FROM reviews;";
+	$result = mysqli_query($conn, $sql);
+	$checkResult = mysqli_num_rows($result);
+	
+	if($checkResult > 0){
+		while($row = mysqli_fetch_assoc($result)){
+			echo "<br>" . "<br>". "ID: " . $row['reviewID'] . "<br>";
+			echo "Rating: " . $row['rating'] . "<br>";
+			echo "Comment: " . $row['comment'] . "<br>";
+		}
+	}  
+?>
+</p>
+</b>
+</div>
+
 </body>
 </html>

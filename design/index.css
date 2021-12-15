@@ -65,8 +65,7 @@ ul.navbar li a{
 }
 
 .printout{
-  margin-left:10px;
-  margin-top: 300px;
+  float:left;
 }
 
 .search{
