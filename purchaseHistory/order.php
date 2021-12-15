@@ -60,6 +60,7 @@ function printProducts($sql, $conn){
     $checkResult = mysqli_num_rows($result);
 
     if($checkResult > 0){
+		$totalPrice = 0;
         while($row = mysqli_fetch_assoc($result)){
 
 			$idProduct = $row['products_idProduct'];
@@ -76,11 +77,13 @@ function printProducts($sql, $conn){
 			echo "quantity: $quantity" . "<br>";
 			echo '<span style="font-size: 19px; color: #000000; font-weight: bold;">Price: ' . $price*$quantity . 'kr<br></span>' ;
             
+			$totalPrice = $totalPrice + $price*$quantity;
 			
-			?>
-			<?php
-        }
-		
+			
+        }?>
+		<hr>
+		<?php
+		echo '<span style="font-size: 25px; color: #000000; font-weight: bold;">Sum order: ' . $totalPrice . 'kr<br></span>' ;
 
     } else {
 		?> <h2> Sorry, could not find order <?php echo $_POST['orderNr']?> </h2> <?php
