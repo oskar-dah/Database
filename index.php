@@ -88,13 +88,30 @@
 			}
 			if(isset($_POST["add"])){
 				if(isset($_SESSION["idCustomer"])){
-					echo "Produkten" . $_POST["add"];
+					//echo "Produkten" . $_POST["add"];
 					$id = $_POST["add"];
 					addToCart($id, $conn, $_SESSION["idCustomer"]);
 				}else{
 					echo '<meta http-equiv="refresh" content="0; url=signUp.php" />';
 				}
 			}
+<<<<<<< HEAD
+
+			if(isset($_POST["review"])){
+				if(isset($_SESSION["idCustomer"])){
+					$id = $_POST["prodID"];
+					$rating = $_POST["rate"];
+					$comment = $_POST["comment"];
+					echo "Produkten" . $_POST["prodID"];
+					reviewProd($conn, $id, $rating, $comment, $_SESSION["idCustomer"]);
+				}else{
+					echo '<meta http-equiv="refresh" content="0; url=signUp.php" />';
+				}
+			}
+		}else{
+			echo "No items found in that category";
+=======
+>>>>>>> a6bce4fc868c2e0675ee0e6cfe2a01230986e5b9
 		}
 	}
 
