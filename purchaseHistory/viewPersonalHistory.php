@@ -115,7 +115,10 @@
 		}elseif($rating > 5 || $rating 	< 0){
 			echo "Rating måste vara mellan 1 - 5";
 		}elseif(empty($rating)){
-			echo "Rating for inte vara tom!";
+			echo "Rating får inte vara tom!";
+		}
+		elseif(!preg_match("/^[1-5]*$/", $rating)){
+			echo "Endast nummer 1-5!";
 		}
 		else{
 			$sql = "INSERT INTO reviews(customer_idCustomer, product_idProduct, comment, rating) VALUES ('$idCust', '$id', '$comment', '$rating');";
