@@ -15,13 +15,13 @@
 <b>
 <p>
 <?php
-	buyCartButton();
-	deleteCartButton(); 
-	try {
+	if(isset($_SESSION['idCustomer'])){
+
+		buyCartButton();
+		deleteCartButton();
+
 		$shopper = $_SESSION['idCustomer'];
 		$sql = "SELECT * FROM shopping_cart WHERE customer_idCustomer=$shopper;";
-	
-		mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 	
 		$result = mysqli_query($conn, $sql);
 		$checkResult = mysqli_num_rows($result);
@@ -40,8 +40,8 @@
 				removeProdFromCartButton($shopper, $productNr['product_idProduct']);
 
 			}
-		}  
-	} catch (Exception $e) {
+		}
+	} else {
 		?>
 		<meta http-equiv="refresh" content="0; url=../signUp.php" />
 		<?php
