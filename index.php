@@ -12,7 +12,7 @@
 <body>
 	
 <div class="search">
-	<h1> Here we do some searching </h1>	
+	<h1> Search a category </h1>	
 	<form action = "index.php" method = "POST">
 		<input type="text" name="cat" placeholder="Category"><br><br>
 		<div class="dropdown">
