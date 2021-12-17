@@ -14,13 +14,13 @@
 
 <form action = "includes/addProd.php" method = "POST">
   
-  <input type="text" name="products" placeholder="Product"><br><br>
+  <input type="text" name="products" placeholder="Product" required><br><br>
   
-  <input type="text" name="price" placeholder="Price"><br><br>
+  <input type="number" min = "0" name="price" placeholder="Price" required><br><br>
   
-  <input type="text" name="amount" placeholder="Amount"><br><br>
+  <input type="number" min = "0" name="amount" placeholder="Amount" required><br><br>
 
-  <input type="text" name="category" placeholder="Category"><br><br>
+  <input type="text" name="category" placeholder="Category" required><br><br>
 
   <button class = "button" type="submit" value="Submit"> Submit </button>
 </form>
@@ -31,7 +31,7 @@
 
 <form action = "includes/removeProd.php" method = "POST">
   
-  <input type="text" name="remProductID" placeholder="ProductID"><br><br>
+  <input  type="number" min = "0" name="remProductID" placeholder="ProductID" required><br><br>
 
   <button name = "removeB" class="button" type="submit" value="Submit"> Submit </button>
 </form>
@@ -42,9 +42,9 @@
 
 <form action = "includes/changePrice.php" method = "POST">
   
-  <input type="text" name="pProductID" placeholder="ProductID"><br><br>
+  <input type="number" min = "0" type="text" name="pProductID" placeholder="ProductID" required><br><br>
 
-  <input type="text" name="newPrice" placeholder="New Price"><br><br>
+  <input type="number" min = "0" name="newPrice" placeholder="New Price" required><br><br>
   
   <button name = "priceB" class="button" type="submit" value="Submit"> Submit </button>
 </form>
@@ -55,9 +55,9 @@
 
 <form action = "includes/changeStock.php" method = "POST">
   
-  <input type="text" name="amProductID" placeholder="ProductID"><br><br>
+  <input type="number" min = "0" name="amProductID" placeholder="ProductID" required><br><br>
 
-  <input type="text" name="newAmount" placeholder="New amount"><br><br>
+  <input type="number" min = "0" name="newAmount" placeholder="New amount" required><br><br>
   
   <button name = "stockB" class="button" type="submit" value="Submit"> Submit </button>
 </form>
@@ -68,7 +68,7 @@
 
 <form action = "includes/review.inc.php" method = "POST">
   
-  <input type="text" name="rID" placeholder="Review ID"><br><br>
+  <input  type="number" min = "0" name="rID" placeholder="Review ID" required><br><br>
   
   <button name = "reviewID" class="button" type="submit" value="Submit"> Submit </button>
 </form>
