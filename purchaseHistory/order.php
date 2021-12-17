@@ -32,6 +32,9 @@ if(isset($idCustomer)){
 $sql = "SELECT * FROM boughtproducts WHERE shipment_idShipment = $orderNr;";
 printProducts($sql, $conn);
 
+changeStatusButton($conn, $orderNr);
+
+
 function printCustomer($sql, $conn){
 	$result = mysqli_query($conn, $sql);
     $checkResult = mysqli_num_rows($result);
@@ -54,6 +57,43 @@ function printCustomer($sql, $conn){
 	}
 }
 
+
+
+function changeStatusButton($conn, $orderNr){
+
+	?>
+	<div class="search">
+		<div class="dropdown">
+		<div class="dropbtn">status</div>
+			<div class="dropdown-content">
+				<form action = "order.php" method = "POST">
+					<input type="hidden" name="orderNr" value=<?php echo $orderNr;?> >
+					<button class = "dropperB" name = "recieved" type="submit" value="Submit" > recieved </button> 
+					<button class = "dropperB" name = "inProgress" type="submit" value="Submit"> in Progress </button>
+					<button class = "dropperB" name = "shipped" type="submit" value="Submit"> shipped </button>
+					
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<?php
+
+	if(isset($_POST['recieved'])){
+		$sqlShipStatus = "UPDATE shipment SET shipStatus='recieved' WHERE idShipment=$orderNr;";
+	} elseif(isset($_POST['inProgress'])){
+		$sqlShipStatus = "UPDATE shipment SET shipStatus='inProgress'WHERE idShipment=$orderNr;";
+	} elseif(isset($_POST['shipped'])){
+		$sqlShipStatus = "UPDATE shipment SET shipStatus='shipped'WHERE idShipment=$orderNr;";
+	}
+
+	(isset($sqlShipStatus)) ? mysqli_query($conn, $sqlShipStatus) : '';
+}
+
+
+
+
+ 
 function printProducts($sql, $conn){
 
     $result = mysqli_query($conn, $sql);
