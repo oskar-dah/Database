@@ -20,11 +20,13 @@
     function printer($sql, $conn){//Modifiera denna till boughtproducts samt hämta namn på prod från prodID
 		$result = mysqli_query($conn, $sql);
 		$checkResult = mysqli_num_rows($result);
-
         $totalPrice = 0;
 		$shipnum = 0;
 		if($checkResult > 0){
 			while($row = mysqli_fetch_assoc($result)){
+				$ship = "SELECT * FROM shipment;";
+				$shipResult = mysqli_query($conn, $ship);
+				$row2 = mysqli_fetch_assoc($shipResult);
                 $prodID = $row['products_idProduct'];
                 $prod = "SELECT p_name FROM products WHERE idProduct = '$prodID';";
                 $prodResult = mysqli_query($conn, $prod);
@@ -37,6 +39,7 @@
 					echo "Name: " . $name['p_name'] . "<br>";
 					echo "Price: " . $row['priceAtPurchase'] . "<br>";
 					echo "Amount: " . $row['amount'] . "<br><br>";
+					echo "Ship Status: " . $row2['shipStatus'] . "<br><br>";
 
 					$shipnum = $row['shipment_idShipment'];
 					$totalPrice += $row['priceAtPurchase'] * $row['amount'];
