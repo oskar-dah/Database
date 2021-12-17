@@ -24,9 +24,25 @@
 </form>
 
 <?php
-$sql = "SELECT idShipment FROM shipment ORDER BY idShipment DESC LIMIT $shipmentLimit;";
+//$sql = "SELECT idShipment FROM shipment ORDER BY idShipment DESC LIMIT $shipmentLimit;";
+//printer($sql, $conn);
+
+echo "<h3>Recieved orders</h3>";
+
+$sql = "SELECT idShipment FROM shipment WHERE shipStatus='recieved' ORDER BY idShipment LIMIT $shipmentLimit;";
 printer($sql, $conn);
 
+echo "<hr>";
+echo "<h3>In progress</h3>";
+
+$sql = "SELECT idShipment FROM shipment WHERE shipStatus='inProgress' ORDER BY idShipment LIMIT $shipmentLimit;";
+printer($sql, $conn);
+
+echo "<hr>";
+echo "<h3>Shipped orders</h3>";
+
+$sql = "SELECT idShipment FROM shipment WHERE shipStatus='shipped' ORDER BY idShipment DESC LIMIT $shipmentLimit;";
+printer($sql, $conn);
 
 function printer($sql, $conn){
     $result = mysqli_query($conn, $sql);
